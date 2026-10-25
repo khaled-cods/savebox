@@ -137,6 +137,90 @@ input[type=range]{width:100%;accent-color:var(--ac)}
 .viewer .ib{background:rgba(255,255,255,.14);color:#fff}
 #toast{position:fixed;inset-inline:0;bottom:calc(90px + env(safe-area-inset-bottom));display:grid;justify-items:center;z-index:90;pointer-events:none}
 #toast div{background:var(--ink);color:var(--bg);padding:10px 18px;border-radius:99px;box-shadow:var(--sh);font-size:.92rem;animation:up .25s both;max-width:90vw}
+
+/* v2: أقسام + بحث + معرض */
+.tx{font-size:var(--fs,1rem)}
+body.nodev .dv{display:none}
+#sbar{padding:8px 12px 0;background:var(--bg)}#sbar .in{border-radius:99px;padding:10px 16px}
+.tabs{display:flex;gap:8px;overflow-x:auto;padding:10px 12px;background:var(--bg);scrollbar-width:none;border-bottom:1px solid var(--ln)}
+.tabs::-webkit-scrollbar{display:none}
+.tabs button{flex:none;padding:7px 16px;border-radius:99px;background:var(--sf2);color:var(--mu);font-size:.9rem;font-weight:500;transition:background .2s,color .2s,transform .15s}
+.tabs button:hover{color:var(--ink)}.tabs button:active{transform:scale(.95)}
+.tabs button[aria-pressed=true]{background:linear-gradient(100deg,var(--ac),var(--ac2));color:#1a1206;font-weight:600}
+#feed .inner.gal{grid-template-columns:repeat(auto-fill,minmax(112px,1fr));gap:6px;max-width:900px}
+#feed .inner.gal .more{grid-column:1/-1}
+.tile{aspect-ratio:1;border-radius:14px;overflow:hidden;background:var(--sf2);animation:in .28s ease-out both;transition:transform .2s}
+.tile:hover{transform:scale(1.03)}.tile img{width:100%;height:100%;object-fit:cover;display:block}
+.viewer .vb{align-items:center}.viewer .vc{color:#fff;font:500 .95rem "Readex Pro";background:rgba(255,255,255,.14);padding:4px 14px;border-radius:99px}
+.vn{position:absolute;top:50%;transform:translateY(-50%);width:48px;height:48px;border-radius:50%;background:rgba(255,255,255,.16);color:#fff;display:grid;place-items:center;backdrop-filter:blur(6px);transition:background .2s}
+.vn:hover{background:rgba(255,255,255,.28)}.vn.vr{right:12px}.vn.vl{left:12px}.vn.vl svg{transform:scaleX(-1)}
+/* إعدادات v2 */
+.stabs{overflow-x:auto}.stabs button{white-space:nowrap}
+.chips{display:flex;flex-wrap:wrap;gap:6px}.chip{padding:3px 12px;border-radius:99px;background:var(--sf2);color:var(--mu);font-size:.82rem}
+.bar{height:10px;border-radius:99px;background:var(--sf2);overflow:hidden}.bar i{display:block;height:100%;border-radius:99px;background:linear-gradient(90deg,var(--ac),var(--ac2));transition:width .6s cubic-bezier(.2,.8,.2,1)}
+.abt{display:flex;align-items:center;gap:14px}.abt svg{width:56px;height:56px}.abt b{display:block;font:700 1.3rem "Readex Pro"}.abt small{color:var(--mu)}
+.how{margin:0;padding-inline-start:20px;display:grid;gap:6px;color:var(--mu)}
+.kb{display:grid;gap:8px;color:var(--mu)}.kb span{display:flex;align-items:center;gap:6px;flex-wrap:wrap}
+kbd{font:500 .8rem "Readex Pro",monospace;background:var(--sf2);border:1px solid var(--ln);border-bottom-width:2px;border-radius:7px;padding:1px 8px;color:var(--ink)}.kb kbd:last-of-type{margin-inline-end:6px}
+/* ===== شاشة الترحيب المتحركة ===== */
+.tour{position:absolute;inset:0;background:#070B14;color:#EAF0FF;overflow:hidden;display:flex;flex-direction:column;user-select:none;touch-action:pan-y;--s:1}
+.tour[dir=rtl]{--s:-1}
+.tour .bg{position:absolute;inset:0;pointer-events:none}
+.tour .bg>i{position:absolute;border-radius:50%;filter:blur(70px);opacity:.5;animation:blob 16s ease-in-out infinite alternate}
+.tour .bg>i:nth-child(1){width:360px;height:360px;background:#FF8A3D;top:-140px;inset-inline-start:-100px}
+.tour .bg>i:nth-child(2){width:320px;height:320px;background:#2D62E8;bottom:-120px;inset-inline-end:-90px;animation-delay:-6s}
+.tour .bg>i:nth-child(3){width:240px;height:240px;background:#19D3A2;top:42%;inset-inline-start:38%;opacity:.18;animation-delay:-10s}
+@keyframes blob{to{transform:translate(50px,-40px) scale(1.25)}}
+.tour .bg u{position:absolute;bottom:-12px;inset-inline-start:var(--x);width:var(--z);height:var(--z);border-radius:50%;background:#EAF0FF;opacity:0;animation:rise var(--d) var(--w) linear infinite}
+@keyframes rise{0%{opacity:0;transform:translateY(0)}15%{opacity:.5}100%{opacity:0;transform:translateY(-105vh)}}
+.tt-top{position:relative;z-index:2;display:flex;justify-content:space-between;align-items:center;padding:max(16px,env(safe-area-inset-top)) 18px 0}
+.tt-top button{padding:8px 16px;border-radius:99px;background:rgba(255,255,255,.08);color:#C9D5F2;font-size:.9rem;backdrop-filter:blur(6px);transition:background .2s}
+.tt-top button:hover{background:rgba(255,255,255,.16)}
+.stage{position:relative;flex:1;z-index:1}
+.sl{position:absolute;inset:0;display:flex;flex-direction:column;justify-content:center;align-items:center;gap:14px;padding:0 26px;text-align:center;opacity:0;visibility:hidden;transform:translateX(calc(var(--s)*-70px)) scale(.96);transition:transform .7s cubic-bezier(.2,.8,.2,1),opacity .5s,visibility .7s}
+.sl.after{transform:translateX(calc(var(--s)*70px)) scale(.96)}
+.sl.on{opacity:1;visibility:visible;transform:none}
+.sl .art{width:min(84vw,360px,44vh*1.34);margin-bottom:8px}
+.sl .scn{width:100%;height:auto;overflow:visible;filter:drop-shadow(0 20px 40px rgba(0,0,0,.45))}
+.sl h1{margin:0;font:700 clamp(1.9rem,6.4vw,2.9rem)/1.2 "Readex Pro",sans-serif;max-width:620px}
+.hw span{display:inline-block;opacity:0;transform:translateY(.7em) rotate(4deg)}
+.sl.on .hw span{animation:wr .8s cubic-bezier(.2,.9,.3,1.25) forwards;animation-delay:calc(.3s + var(--w)*.09s)}
+@keyframes wr{to{opacity:1;transform:none}}
+.sl .sub{margin:0;max-width:440px;color:#A9B8DA;font-size:1.05rem;opacity:0;transform:translateY(12px)}
+.sl.on .sub{animation:wr .8s .75s cubic-bezier(.2,.8,.2,1) forwards}
+.sl .art{opacity:0;transform:scale(.88) translateY(18px)}.sl.on .art{animation:wr .9s .05s cubic-bezier(.2,.9,.3,1.15) forwards}
+.tt-bot{position:relative;z-index:2;display:flex;align-items:center;justify-content:space-between;gap:16px;padding:12px 22px max(26px,env(safe-area-inset-bottom))}
+.dots{display:flex;gap:8px}.dots button{width:10px;height:10px;border-radius:99px;background:rgba(255,255,255,.25);transition:width .4s cubic-bezier(.2,.8,.2,1),background .3s}
+.dots button.on{width:34px;background:linear-gradient(90deg,#FF8A3D,#FFC24B)}
+.tn{min-width:130px;padding:14px 26px;border-radius:16px;font:600 1rem "Readex Pro";background:rgba(255,255,255,.1);color:#fff;transition:transform .15s,background .3s}
+.tn:active{transform:scale(.96)}.tn.last{background:linear-gradient(100deg,#FF8A3D,#FFC24B);color:#1a1206;box-shadow:0 10px 30px rgba(255,138,61,.4);animation:glow 2s ease-in-out infinite}
+@keyframes glow{50%{box-shadow:0 10px 44px rgba(255,138,61,.7);transform:scale(1.04)}}
+/* مشهد 1 */
+.sl.on .s1 .flow{animation:dash 1.2s linear infinite}@keyframes dash{to{stroke-dashoffset:-22}}
+.sl.on .s1 .dv{animation:bob 4s ease-in-out infinite}.s1 .dv.d2{animation-delay:-2s}@keyframes bob{50%{transform:translateY(-6px)}}
+.sl.on .s1 .core1{transform-origin:32px 32px;animation:pulse 2.7s ease-in-out infinite}@keyframes pulse{50%{transform:scale(1.1)}}
+.sl.on .s1 .hit{transform-origin:228px 130px;animation:hit 2.7s ease-out infinite}@keyframes hit{0%,70%{opacity:0;transform:scale(.4)}78%{opacity:.9}100%{opacity:0;transform:scale(3)}}
+/* مشهد 2 */
+.sl.on .s2 .q{fill:#EAF0FF;transform-box:fill-box;transform-origin:center;animation:qc 4.8s ease-in-out infinite;animation-delay:calc(var(--i)*60ms)}
+@keyframes qc{0%{transform:scale(0);opacity:0}12%,80%{transform:scale(1);opacity:1}92%,100%{transform:scale(0);opacity:0}}
+.sl.on .s2 .ln{animation:sc 2.4s ease-in-out infinite;filter:drop-shadow(0 0 8px #FF8A3D)}@keyframes sc{0%,100%{transform:translateY(0)}50%{transform:translateY(152px)}}
+.sl.on .s2 .brk{animation:bk 2.4s ease-in-out infinite}@keyframes bk{50%{opacity:.5}}
+.sl.on .s2 .ok{transform-box:fill-box;transform-origin:center;animation:okp 4.8s ease-in-out infinite}
+@keyframes okp{0%,55%{transform:scale(0)}64%{transform:scale(1.2)}70%,88%{transform:scale(1)}96%,100%{transform:scale(0)}}
+/* مشهد 3 */
+.sl.on .s3 .cd{transform-box:fill-box;transform-origin:center;animation:cdi 5s cubic-bezier(.2,.9,.3,1.2) infinite;animation-delay:calc(var(--n)*.18s)}
+@keyframes cdi{0%{opacity:0;transform:translate(var(--x),var(--y)) scale(.6) rotate(-8deg)}14%,86%{opacity:1;transform:none}100%{opacity:0;transform:translate(var(--x),var(--y)) scale(.6)}}
+.sl.on .s3 .chips rect{transform-box:fill-box;transform-origin:center;animation:ch 5s ease-in-out infinite;animation-delay:calc(var(--k)*.25s)}
+@keyframes ch{0%,6%{transform:scale(0)}16%,86%{transform:scale(1)}100%{transform:scale(0)}}
+/* مشهد 4 */
+.sl.on .s4 .rg{transform-box:fill-box;transform-origin:center;animation:rgp 3.6s ease-out infinite}.s4 .r2{animation-delay:1.2s}.s4 .r3{animation-delay:2.4s}
+@keyframes rgp{0%{opacity:.8;transform:scale(.8)}100%{opacity:0;transform:scale(3.2)}}
+.sl.on .s4 .orb{transform-origin:160px 120px;animation:orb 12s linear infinite}@keyframes orb{to{transform:rotate(360deg)}}
+.sl.on .s4 .sh{stroke-dasharray:420;stroke-dashoffset:420;animation:shd 5s ease-in-out infinite}
+@keyframes shd{0%{stroke-dashoffset:420}25%,92%{stroke-dashoffset:0}100%{stroke-dashoffset:-420}}
+.sl.on .s4 .lk{transform-box:fill-box;transform-origin:center;animation:lkp 5s ease-in-out infinite}
+@keyframes lkp{0%,22%{transform:scale(0)}34%{transform:scale(1.25)}40%,90%{transform:scale(1)}100%{transform:scale(0)}}
+@media(max-height:620px){.sl .art{width:min(60vw,240px)}.sl h1{font-size:1.7rem}.sl .sub{font-size:.95rem}}
 @media(prefers-reduced-motion:reduce){*{animation-duration:.01ms!important;animation-delay:0s!important;scroll-behavior:auto!important}}
 @media(min-width:760px){.ov{align-items:center}.sheet{border-radius:24px}}
 </style>

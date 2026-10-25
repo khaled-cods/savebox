@@ -1,0 +1,163 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>SaveBox</title>
+<meta name="theme-color" content="#0A0F1A">
+<meta name="description" content="SaveBox: رسايلك وملفاتك على كل أجهزتك">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="icon" href="icon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="icon-180.png">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Readex+Pro:wght@400;500;600;700&family=IBM+Plex+Sans+Arabic:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#F3F5FA;--sf:#FFFFFF;--sf2:#E9EDF6;--ln:#D8DFEE;--ink:#0E1A33;--mu:#5B6B8C;--ac:#F26B0F;--ac2:#FFB347;--ok:#0FA37A;--bad:#D6334A;--sh:0 10px 30px rgba(14,26,51,.10);--dots:rgba(14,26,51,.07);color-scheme:light}
+:root[data-theme=dark]{--bg:#0A0F1A;--sf:#121A2B;--sf2:#1A2540;--ln:#243255;--ink:#EAF0FF;--mu:#8FA0C4;--ac:#FF8A3D;--ac2:#FFC24B;--ok:#4DF0B2;--bad:#FF6B81;--sh:0 10px 30px rgba(0,0,0,.45);--dots:rgba(234,240,255,.06);color-scheme:dark}
+@media(prefers-color-scheme:dark){:root:not([data-theme=light]){--bg:#0A0F1A;--sf:#121A2B;--sf2:#1A2540;--ln:#243255;--ink:#EAF0FF;--mu:#8FA0C4;--ac:#FF8A3D;--ac2:#FFC24B;--ok:#4DF0B2;--bad:#FF6B81;--sh:0 10px 30px rgba(0,0,0,.45);--dots:rgba(234,240,255,.06);color-scheme:dark}}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html,body{height:100%;margin:0}
+body{background:var(--bg);color:var(--ink);font-family:"IBM Plex Sans Arabic",Tahoma,system-ui,sans-serif;font-size:16px;line-height:1.6;overflow:hidden}
+h1,h2,h3,button,.hd{font-family:"Readex Pro","IBM Plex Sans Arabic",Tahoma,sans-serif}
+button{font:inherit;color:inherit;border:0;background:none;cursor:pointer;padding:0}
+input,textarea,select{font:inherit;color:inherit}
+svg.i{width:22px;height:22px;fill:none;stroke:currentColor;stroke-width:1.9;stroke-linecap:round;stroke-linejoin:round;flex:none}
+:focus-visible{outline:3px solid var(--ac);outline-offset:2px}
+a{color:var(--ac)}
+.hide{display:none!important}
+/* splash */
+#splash{position:fixed;inset:0;z-index:99;display:grid;place-items:center;background:#0A0F1A;color:#EAF0FF;transition:opacity .45s,visibility .45s}
+#splash.out{opacity:0;visibility:hidden}
+.sp{display:grid;justify-items:center;gap:18px}
+.sp svg{width:112px;height:112px}
+.sp .cube{stroke-dasharray:260;stroke-dashoffset:260;animation:draw 1s .1s cubic-bezier(.6,0,.2,1) forwards}
+.sp .core{transform-origin:32px 35px;transform:scale(0);animation:pop .5s .85s cubic-bezier(.3,1.6,.5,1) forwards}
+.sp .ring{transform-origin:32px 35px;opacity:0;animation:ring 1.2s 1s ease-out infinite}
+.sp b{font:600 1.7rem "Readex Pro",sans-serif;letter-spacing:.5px;opacity:0;animation:fade .5s .9s forwards}
+.sp small{color:#8FA0C4;opacity:0;animation:fade .5s 1.05s forwards}
+@keyframes draw{to{stroke-dashoffset:0}}@keyframes pop{to{transform:scale(1)}}@keyframes fade{to{opacity:1}}
+@keyframes ring{0%{opacity:.7;transform:scale(.6)}100%{opacity:0;transform:scale(2.4)}}
+/* screens */
+#root{position:fixed;inset:0;display:flex;flex-direction:column}
+.screen{flex:1;display:flex;flex-direction:column;align-items:center;overflow:auto;padding:max(24px,env(safe-area-inset-top)) 20px max(24px,env(safe-area-inset-bottom))}
+.wrap{width:100%;max-width:460px;margin:auto 0;display:grid;gap:18px}
+.brand{display:flex;align-items:center;gap:12px}.brand svg{width:44px;height:44px}.brand b{font:600 1.35rem "Readex Pro";}
+.wrap h1{font:700 clamp(1.7rem,6vw,2.3rem)/1.25 "Readex Pro";margin:0}
+.wrap p{margin:0;color:var(--mu)}
+.card{background:var(--sf);border:1px solid var(--ln);border-radius:20px;padding:18px;box-shadow:var(--sh);display:grid;gap:12px}
+.choice{display:flex;align-items:center;gap:14px;text-align:start;width:100%;padding:16px;border-radius:18px;background:var(--sf);border:1.5px solid var(--ln);transition:transform .2s,border-color .2s,box-shadow .2s}
+.choice:hover{transform:translateY(-2px);border-color:var(--ac);box-shadow:var(--sh)}
+.choice .ci{width:46px;height:46px;border-radius:14px;display:grid;place-items:center;background:var(--sf2);color:var(--ac);flex:none}
+.choice b{display:block;font-weight:600}.choice small{color:var(--mu)}
+label.f{display:grid;gap:4px;font-size:.9rem;color:var(--mu)}
+.in{width:100%;padding:12px 14px;border-radius:14px;border:1.5px solid var(--ln);background:var(--bg);outline:0;transition:border-color .2s,box-shadow .2s}
+.in:focus{border-color:var(--ac);box-shadow:0 0 0 4px color-mix(in srgb,var(--ac) 22%,transparent)}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;padding:12px 20px;border-radius:14px;font-weight:600;background:linear-gradient(100deg,var(--ac),var(--ac2));color:#1a1206;transition:transform .15s,filter .2s}
+.btn:hover{filter:brightness(1.06)}.btn:active{transform:scale(.97)}.btn[disabled]{opacity:.5;pointer-events:none}
+.btn.ghost{background:var(--sf2);color:var(--ink)}.btn.bad{background:var(--bad);color:#fff}
+.lnk{color:var(--mu);text-decoration:underline;justify-self:center;padding:6px}
+.msg{min-height:1.4em;color:var(--bad);font-size:.92rem}
+.msg.ok{color:var(--ok)}
+/* QR */
+.qrbox{position:relative;justify-self:center;width:min(78vw,280px);aspect-ratio:1;background:#fff;border-radius:22px;padding:14px;box-shadow:var(--sh);overflow:hidden}
+.qrbox svg{width:100%;height:100%;display:block}
+.qrbox::after{content:"";position:absolute;inset-inline:0;height:3px;top:0;background:linear-gradient(90deg,transparent,var(--ac),transparent);box-shadow:0 0 14px var(--ac);animation:scan 2.2s ease-in-out infinite}
+@keyframes scan{0%,100%{top:8%}50%{top:90%}}
+.code{font:600 1.5rem/1 "Readex Pro",monospace;letter-spacing:.18em;direction:ltr;text-align:center;padding:10px;background:var(--sf2);border-radius:12px}
+.pulse{display:inline-block;width:9px;height:9px;border-radius:50%;background:var(--ac);margin-inline-end:8px;animation:pl 1.2s infinite}
+@keyframes pl{0%,100%{opacity:1}50%{opacity:.3}}
+/* app */
+.top{display:flex;align-items:center;gap:10px;padding:max(10px,env(safe-area-inset-top)) 14px 10px;background:color-mix(in srgb,var(--bg) 82%,transparent);backdrop-filter:blur(12px);border-bottom:1px solid var(--ln);z-index:5}
+.top svg.lg{width:38px;height:38px;flex:none}
+.top .tt{flex:1;min-width:0}.top .tt b{display:block;font:600 1.05rem/1.2 "Readex Pro";white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.top .tt small{display:flex;align-items:center;gap:6px;color:var(--mu);font-size:.8rem}
+.dot{width:8px;height:8px;border-radius:50%;background:var(--ac2)}.dot.on{background:var(--ok);box-shadow:0 0 0 3px color-mix(in srgb,var(--ok) 25%,transparent)}
+.ib{width:42px;height:42px;border-radius:14px;display:grid;place-items:center;color:var(--ink);transition:background .2s}
+.ib:hover{background:var(--sf2)}
+#feed{flex:1;overflow-y:auto;padding:14px 12px 20px;background-image:radial-gradient(var(--dots) 1.2px,transparent 1.3px);background-size:22px 22px;scroll-behavior:smooth;overscroll-behavior:contain}
+#feed .inner{max-width:760px;margin:0 auto;display:grid;gap:8px}
+.day{justify-self:center;margin:12px 0 4px;padding:2px 14px;border-radius:99px;background:var(--sf2);color:var(--mu);font-size:.8rem}
+.it{display:grid;justify-items:start;animation:in .28s ease-out both}
+.it .bub{max-width:min(600px,92%);background:var(--sf);border:1px solid var(--ln);border-radius:18px;border-start-start-radius:6px;padding:10px 12px 6px;box-shadow:0 1px 0 rgba(0,0,0,.04);min-width:120px}
+@keyframes in{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+.tx{margin:0 0 4px;white-space:pre-wrap;word-break:break-word;font-size:1rem}
+.tx a{word-break:break-all}
+.lk{display:grid;gap:2px;text-decoration:none;color:inherit;padding:8px 10px;border-radius:12px;background:var(--sf2);margin-bottom:4px;border-inline-start:3px solid var(--ac)}
+.lk b{font-weight:600}.lk span{color:var(--mu);font-size:.85rem;word-break:break-all;direction:ltr;text-align:start}
+.im{display:block;border-radius:12px;overflow:hidden;margin-bottom:4px;background:var(--sf2)}
+.im img,.it video{display:block;max-width:100%;max-height:340px;min-width:140px;min-height:90px;object-fit:contain;border-radius:12px}
+.it video{margin-bottom:4px;background:#000}.it audio{width:min(300px,100%);margin-bottom:4px}
+.sk{width:220px;height:140px;border-radius:12px;background:linear-gradient(90deg,var(--sf2),var(--ln),var(--sf2));background-size:200% 100%;animation:sk 1.2s linear infinite;margin-bottom:4px}
+@keyframes sk{to{background-position:-200% 0}}
+.fl{display:flex;align-items:center;gap:12px;padding:8px;border-radius:12px;background:var(--sf2);margin-bottom:4px;min-width:220px}
+.fl .fi{width:42px;height:42px;border-radius:12px;display:grid;place-items:center;background:var(--sf);color:var(--ac);flex:none}
+.fl b{display:block;font-weight:500;word-break:break-all;line-height:1.3}.fl small{color:var(--mu)}
+.meta{display:flex;align-items:center;gap:8px;font-size:.76rem;color:var(--mu);min-height:28px}
+.dv{display:inline-flex;align-items:center;gap:5px}.dv i{width:8px;height:8px;border-radius:50%;background:hsl(var(--h) 75% 55%)}
+.acts{margin-inline-start:auto;display:flex;gap:2px}
+.acts button{width:30px;height:28px;border-radius:9px;display:grid;place-items:center;color:var(--mu)}
+.acts button:hover{background:var(--sf2);color:var(--ink)}.acts button svg{width:17px;height:17px}
+.acts button.sure{width:auto;padding:0 8px;background:var(--bad);color:#fff;font-size:.78rem}
+.empty{display:grid;justify-items:center;gap:8px;text-align:center;color:var(--mu);padding:60px 20px}
+.empty svg{width:72px;height:72px;opacity:.9}.empty b{color:var(--ink);font:600 1.15rem "Readex Pro"}
+.more{justify-self:center;padding:6px 16px;border-radius:99px;background:var(--sf2);color:var(--mu);font-size:.85rem}
+#newpill{position:absolute;inset-inline-end:16px;bottom:88px;z-index:6;padding:8px 16px;border-radius:99px;background:var(--ac);color:#1a1206;font-weight:600;box-shadow:var(--sh)}
+.comp{direction:ltr;display:flex;align-items:flex-end;gap:8px;padding:10px 12px max(10px,env(safe-area-inset-bottom));background:var(--bg);border-top:1px solid var(--ln)}
+.comp textarea{flex:1;min-width:0;resize:none;max-height:150px;min-height:46px;padding:11px 14px;border-radius:23px;border:1.5px solid var(--ln);background:var(--sf);outline:0;line-height:1.5}
+.comp textarea:focus{border-color:var(--ac)}
+.rb{width:46px;height:46px;border-radius:50%;display:grid;place-items:center;flex:none;transition:transform .15s,background .2s}
+.rb.att{background:var(--sf2);color:var(--ink)}.rb.snd{background:linear-gradient(135deg,var(--ac),var(--ac2));color:#1a1206}
+.rb:active{transform:scale(.92)}.rb[disabled]{opacity:.45;pointer-events:none}
+.drop{position:fixed;inset:0;z-index:50;background:color-mix(in srgb,var(--bg) 85%,transparent);backdrop-filter:blur(6px);display:grid;place-items:center;font:600 1.4rem "Readex Pro";border:4px dashed var(--ac);margin:10px;border-radius:24px;inset:0}
+/* overlays */
+.ov{position:fixed;inset:0;z-index:60;background:rgba(5,8,15,.66);backdrop-filter:blur(4px);display:grid;align-items:end;justify-items:center;animation:fd .2s both}
+@keyframes fd{from{opacity:0}to{opacity:1}}
+.sheet{width:min(560px,100%);max-height:92vh;overflow:auto;background:var(--bg);border:1px solid var(--ln);border-radius:24px 24px 0 0;padding:16px 16px max(22px,env(safe-area-inset-bottom));animation:up .28s cubic-bezier(.2,.8,.2,1) both;display:grid;gap:14px}
+@keyframes up{from{transform:translateY(40px);opacity:0}to{transform:none;opacity:1}}
+.sheet h2{margin:0;font:600 1.15rem "Readex Pro";display:flex;align-items:center;justify-content:space-between}
+.sec{display:grid;gap:10px;background:var(--sf);border:1px solid var(--ln);border-radius:18px;padding:14px}
+.sec h3{margin:0;font:600 .88rem "Readex Pro";color:var(--mu)}
+.row{display:flex;align-items:center;gap:10px}.row .in{flex:1}
+.dev{display:flex;align-items:center;gap:10px;padding:8px;border-radius:12px;background:var(--sf2)}
+.dev .di{width:36px;height:36px;border-radius:11px;background:var(--sf);display:grid;place-items:center;color:hsl(var(--h) 75% 55%)}
+.dev div{flex:1;min-width:0}.dev b{display:block;font-weight:500}.dev small{color:var(--mu)}
+.seg{display:flex;background:var(--sf2);border-radius:12px;padding:3px}.seg button{flex:1;padding:7px;border-radius:9px;font-size:.9rem}.seg button[aria-pressed=true]{background:var(--sf);box-shadow:0 1px 4px rgba(0,0,0,.2);font-weight:600}
+input[type=range]{width:100%;accent-color:var(--ac)}
+.sw2{display:flex;align-items:center;justify-content:space-between;gap:10px}
+.tg{width:48px;height:28px;border-radius:99px;background:var(--ln);position:relative;transition:background .2s;flex:none}.tg i{position:absolute;top:3px;inset-inline-start:3px;width:22px;height:22px;border-radius:50%;background:#fff;transition:inset-inline-start .2s}
+.tg[aria-checked=true]{background:var(--ok)}.tg[aria-checked=true] i{inset-inline-start:23px}
+.mid{place-items:center}.dlg{width:min(380px,92%);background:var(--sf);border:1px solid var(--ln);border-radius:20px;padding:18px;display:grid;gap:14px;box-shadow:var(--sh);animation:up .22s both}
+.dlg p{margin:0}.dlg .row{justify-content:flex-end}
+.scan{position:relative;border-radius:18px;overflow:hidden;background:#000;aspect-ratio:1;max-height:50vh;justify-self:center;width:100%}
+.scan video{width:100%;height:100%;object-fit:cover}
+.scan::after{content:"";position:absolute;inset:14%;border:3px solid var(--ac);border-radius:18px;box-shadow:0 0 0 999px rgba(0,0,0,.35)}
+.viewer{position:fixed;inset:0;z-index:70;background:rgba(3,5,10,.94);display:grid;place-items:center}
+.viewer img,.viewer video{max-width:96vw;max-height:88vh;object-fit:contain}
+.viewer .vb{position:absolute;top:max(12px,env(safe-area-inset-top));inset-inline:12px;display:flex;justify-content:space-between}
+.viewer .ib{background:rgba(255,255,255,.14);color:#fff}
+#toast{position:fixed;inset-inline:0;bottom:calc(90px + env(safe-area-inset-bottom));display:grid;justify-items:center;z-index:90;pointer-events:none}
+#toast div{background:var(--ink);color:var(--bg);padding:10px 18px;border-radius:99px;box-shadow:var(--sh);font-size:.92rem;animation:up .25s both;max-width:90vw}
+@media(prefers-reduced-motion:reduce){*{animation-duration:.01ms!important;animation-delay:0s!important;scroll-behavior:auto!important}}
+@media(min-width:760px){.ov{align-items:center}.sheet{border-radius:24px}}
+</style>
+</head>
+<body>
+<div id="splash" aria-hidden="true"><div class="sp">
+ <svg viewBox="0 0 64 64" fill="none" stroke-linejoin="round" stroke-linecap="round">
+  <rect width="64" height="64" rx="16" fill="#121A2B"/>
+  <g class="cube" stroke="#EAF0FF" stroke-width="3"><path d="M14 26l18-9 18 9v20l-18 9-18-9z"/><path d="M14 26l18 9 18-9M32 35v20"/></g>
+  <circle class="ring" cx="32" cy="35" r="5" stroke="#FF8A3D" stroke-width="2"/>
+  <circle class="core" cx="32" cy="35" r="4.6" fill="#FF8A3D"/>
+ </svg>
+ <b>SaveBox</b><small id="spsub"></small>
+</div></div>
+<div id="root"></div>
+<div id="ovs"></div>
+<div id="toast"></div>
+<script src="config.js"></script>
+<script src="supabase.min.js"></script>
+<script src="qrcode.js"></script>
+<script src="jsqr.js"></script>
+<script src="app.js"></script>
+</body>
+</html>

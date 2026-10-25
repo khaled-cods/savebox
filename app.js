@@ -85,7 +85,7 @@ replay:"Replay the welcome",update:"Update the app",updating:"Updating...",versi
 c_del_one:"Delete this item from all devices?",view_prev:"Older",view_next:"Newer",
 sync_hint:"Syncs instantly across all your devices."
 });
-Object.assign(T.ar,{s_msgs:"الرسايل",waiting_new:"في انتظار الجهاز الجديد..."});Object.assign(T.en,{s_msgs:"Messages",waiting_new:"Waiting for the new device..."});
+Object.assign(T.ar,{l_wrong_in:"ده كود دعوة، وجهازك ده مربوط بالفعل. امسحه من جهاز لسه مش مربوط (اللي بيقول «اربط بجهاز موجود»).",l_wrong_new:"ده كود لجهاز جديد. امسحه من جهاز مربوط بالفعل من أيقونة QR.",s_msgs:"الرسايل",waiting_new:"في انتظار الجهاز الجديد..."});Object.assign(T.en,{l_wrong_in:"This is an invite code and this device is already linked. Scan it from a device that is not linked yet (the one showing “Link to an existing device”).",l_wrong_new:"This code belongs to a new device. Scan it from an already linked device using the QR icon.",s_msgs:"Messages",waiting_new:"Waiting for the new device..."});
 
 let LANG=ls.get("lang",(navigator.language||"ar").toLowerCase().startsWith("ar")?"ar":"en");
 const t=(k,...a)=>{let s=(T[LANG]&&T[LANG][k])||T.ar[k]||k;a.forEach((v,i)=>{s=s.replace("{"+i+"}",v)});return s};
@@ -195,7 +195,7 @@ function formLink(mode){
    <label class="f">${esc(t("manual_code"))}<div class="row"><input class="in" id="mc" dir="ltr" maxlength="9" autocapitalize="characters" autocomplete="off" placeholder="ABCD 2345"><button class="btn" data-act="joingo">${esc(t("approve"))}</button></div></label>
   </div>
   <button class="lnk" data-act="home">${esc(t("back"))}</button></div></div>`;
- startScan($("#scanbox"),async txt=>{const p=parseQR(txt);if(!p)return;if(p.type!=="sbi"){$("#m").textContent=t("l_wrong");return}await joinWith(p.code)},()=>{const b=$("#scanbox");if(b)b.remove();$("#m").textContent=t("no_cam")});
+ startScan($("#scanbox"),async txt=>{const p=parseQR(txt);if(!p)return;if(p.type!=="sbi"){$("#m").textContent=t("l_wrong_new");return}await joinWith(p.code)},()=>{const b=$("#scanbox");if(b)b.remove();$("#m").textContent=t("no_cam")});
 }
 async function joinWith(code){
  const m=$("#m"),d=($("#fd")&&$("#fd").value.trim())||defaultDevice();
@@ -567,7 +567,7 @@ function linkScan(){
  $("#lkbody").innerHTML=`<p style="margin:0;color:var(--mu)">${esc(t("scan_hint"))}</p>
   <div class="scan" id="scanbox"><video id="sv" playsinline muted></video></div><div class="msg" id="sm"></div>
   <label class="f">${esc(t("manual_code"))}<div class="row"><input class="in" id="mc" dir="ltr" maxlength="9" autocapitalize="characters" autocomplete="off" placeholder="ABCD 2345"><button class="btn" data-act="mcgo">${esc(t("approve"))}</button></div></label>`;
- startScan($("#scanbox"),async txt=>{const p=parseQR(txt);if(!p)return;if(p.type!=="savebox"){showSm(t("l_wrong"));return}await approve(p.code)},()=>{const b=$("#scanbox");if(b)b.remove();showSm(t("no_cam"))});
+ startScan($("#scanbox"),async txt=>{const p=parseQR(txt);if(!p)return;if(p.type!=="savebox"){showSm(t("l_wrong_in"));return}await approve(p.code)},()=>{const b=$("#scanbox");if(b)b.remove();showSm(t("no_cam"))});
 }
 function showSm(m){const e=$("#sm");if(!e)return;e.textContent=m;clearTimeout(S.timers.sm);S.timers.sm=setTimeout(()=>{if(e)e.textContent=""},3500)}
 async function approve(code){

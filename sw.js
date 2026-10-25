@@ -1,4 +1,4 @@
-const V="sb-v2",SHELL=["./","index.html","app.js","config.js","supabase.min.js","qrcode.js","jsqr.js","manifest.webmanifest","icon.svg","icon-192.png","icon-512.png"];
+const V="sb-v3",SHELL=["./","index.html","app.js","config.js","supabase.min.js","qrcode.js","jsqr.js","manifest.webmanifest","icon.svg","icon-192.png","icon-512.png"];
 self.addEventListener("install",e=>{e.waitUntil(caches.open(V).then(c=>c.addAll(SHELL)).then(()=>self.skipWaiting()))});
 self.addEventListener("activate",e=>{e.waitUntil(caches.keys().then(ks=>Promise.all(ks.filter(k=>k!==V&&k!=="sb-share").map(k=>caches.delete(k)))).then(()=>self.clients.claim()))});
 self.addEventListener("fetch",e=>{
@@ -17,3 +17,16 @@ async function handleShare(r){
  }catch(e){}
  return Response.redirect("./?shared=1",303);
 }
+
+self.addEventListener("push",e=>{
+ let d={};try{d=e.data.json()}catch(x){d={title:"SaveBox",body:e.data?e.data.text():""}}
+ e.waitUntil((async()=>{
+  const cs=await clients.matchAll({type:"window",includeUncontrolled:true});
+  if(cs.some(c=>c.focused&&c.visibilityState==="visible"))return;
+  await self.registration.showNotification(d.title||"SaveBox",{body:d.body||"",tag:d.tag||"sb",icon:"icon-192.png",badge:"icon-192.png",renotify:true,dir:"auto",data:{url:"./"}});
+ })());
+});
+self.addEventListener("notificationclick",e=>{
+ e.notification.close();
+ e.waitUntil(clients.matchAll({type:"window",includeUncontrolled:true}).then(cs=>{const c=cs.find(x=>"focus" in x);if(c)return c.focus();return clients.openWindow("./")}));
+});

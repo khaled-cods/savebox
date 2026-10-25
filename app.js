@@ -1,7 +1,7 @@
 "use strict";
 /* SaveBox: رسايلك وملفاتك بين كل أجهزتك. الربط برقم الموبايل + QR، ومزامنة لحظية عبر Supabase. */
 const CFG=window.SB_CFG||{};
-const VER="2.0.0";
+const VER="3.0.0";
 const Q=new URLSearchParams(location.search),DEV=Q.get("dev")||"";
 const $=(s,r=document)=>r.querySelector(s),$$=(s,r=document)=>[...r.querySelectorAll(s)];
 const esc=s=>String(s==null?"":s).replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
@@ -86,6 +86,28 @@ c_del_one:"Delete this item from all devices?",view_prev:"Older",view_next:"Newe
 sync_hint:"Syncs instantly across all your devices."
 });
 Object.assign(T.ar,{l_wrong_in:"ده كود دعوة، وجهازك ده مربوط بالفعل. امسحه من جهاز لسه مش مربوط (اللي بيقول «اربط بجهاز موجود»).",l_wrong_new:"ده كود لجهاز جديد. امسحه من جهاز مربوط بالفعل من أيقونة QR.",s_msgs:"الرسايل",waiting_new:"في انتظار الجهاز الجديد..."});Object.assign(T.en,{l_wrong_in:"This is an invite code and this device is already linked. Scan it from a device that is not linked yet (the one showing “Link to an existing device”).",l_wrong_new:"This code belongs to a new device. Scan it from an already linked device using the QR icon.",s_msgs:"Messages",waiting_new:"Waiting for the new device..."});
+Object.assign(T.ar,{
+sp_account:"حسابي ومساحتي",sp_devices:"الأجهزة والربط",sp_notif:"الإشعارات",sp_look:"المظهر واللغة",sp_files:"الملفات والمساحة",sp_privacy:"الخصوصية والأمان",sp_about:"عن التطبيق",
+on:"شغّالة",off:"مقفولة",lock_on:"القفل شغّال",lock_off:"من غير قفل",st_files_sub:"المساحة والتصدير",sound_short:"الصوت",lock_short:"القفل",
+n_master:"إشعارات الرسايل الجديدة",n_master_h:"ينبّهك لما رسالة توصل من جهازك التاني",n_preview:"اعرض محتوى الرسالة",n_preview_h:"لو اتقفل هيظهر «رسالة جديدة» بس",n_focus:"حتى والتطبيق مفتوح",n_focus_h:"وصّل إشعار حتى لو انت قدام التطبيق",n_sound_h:"نغمة قصيرة لما رسالة توصل",n_test:"جرّب إشعار",n_test_b:"الإشعارات شغّالة ✓",
+n_status_push:"شغّالة حتى والتطبيق مقفول",n_status_local:"شغّالة والتطبيق مفتوح أو في الخلفية",n_status_off:"الإشعارات مقفولة",
+n_blocked:"الإشعارات ممنوعة. فعّلها من إعدادات المتصفح للموقع ده.",n_unsupported:"المتصفح ده مش بيدعم الإشعارات.",n_on_push:"اتفعّلت، وهتوصلك حتى والتطبيق مقفول",n_on_local:"اتفعّلت، وهتوصلك والتطبيق مفتوح أو في الخلفية",n_new:"رسالة جديدة",n_voice:"رسالة صوتية",
+pin_lock:"قفل التطبيق بـ PIN",pin_lock_h:"رمز من 4 أرقام عند فتح التطبيق",autolock:"اقفل بعد ما أسيبه",al_0:"فوراً",al_1:"دقيقة",al_5:"5 دقايق",al_15:"15 دقيقة",
+lock_title:"التطبيق مقفول",lock_sub:"اكتب الرمز السري",pin_new:"اختار رمز سري",pin_new_s:"4 أرقام",pin_again:"أكّد الرمز",pin_again_s:"اكتبه تاني",pin_set:"اتفعّل القفل",pin_off:"اتقفل القفل",pin_enter:"اكتب الرمز الحالي",pin_enter_s:"علشان تقفل القفل",
+play:"تشغيل",mic:"تسجيل صوتي",rec_cancel:"إلغاء التسجيل",rec_unsupported:"المتصفح ده مش بيدعم التسجيل الصوتي.",mic_denied:"مش قادر أوصل للميكروفون. اسمح بيه من إعدادات المتصفح.",
+merge_q:"الجهاز اللي مسحته في مساحة تانية. تدمج مساحتك ({0} جهاز) معاه؟ رسايلك وملفاتك هتنضم له.",merge_done:"اتدمجت المساحتين ✓",merge_hint:"لو جهازين فتحوا مساحتين منفصلتين، اعرض QR على جهاز وامسحه من التاني، وهيتدمجوا في مساحة واحدة.",e_same:"الجهازين في نفس المساحة بالفعل."
+});
+Object.assign(T.en,{
+sp_account:"My space",sp_devices:"Devices and linking",sp_notif:"Notifications",sp_look:"Look and language",sp_files:"Files and storage",sp_privacy:"Privacy and security",sp_about:"About",
+on:"On",off:"Off",lock_on:"Lock is on",lock_off:"No lock",st_files_sub:"Storage and export",sound_short:"Sound",lock_short:"Lock",
+n_master:"New message notifications",n_master_h:"Alerts you when a message arrives from your other device",n_preview:"Show message content",n_preview_h:"When off it just says “New message”",n_focus:"Even while the app is open",n_focus_h:"Notify even when you're looking at the app",n_sound_h:"A short tone when a message arrives",n_test:"Try a notification",n_test_b:"Notifications are working ✓",
+n_status_push:"Works even when the app is closed",n_status_local:"Works while the app is open or in the background",n_status_off:"Notifications are off",
+n_blocked:"Notifications are blocked. Allow them in your browser's site settings.",n_unsupported:"This browser doesn't support notifications.",n_on_push:"Enabled. You'll get them even when the app is closed",n_on_local:"Enabled while the app is open or in the background",n_new:"New message",n_voice:"Voice message",
+pin_lock:"PIN lock",pin_lock_h:"A 4-digit code when opening the app",autolock:"Lock after I leave for",al_0:"Right away",al_1:"1 min",al_5:"5 min",al_15:"15 min",
+lock_title:"SaveBox is locked",lock_sub:"Enter your PIN",pin_new:"Choose a PIN",pin_new_s:"4 digits",pin_again:"Confirm the PIN",pin_again_s:"Enter it again",pin_set:"Lock enabled",pin_off:"Lock disabled",pin_enter:"Enter your current PIN",pin_enter_s:"To turn the lock off",
+play:"Play",mic:"Record voice",rec_cancel:"Cancel recording",rec_unsupported:"This browser can't record audio.",mic_denied:"Can't reach the microphone. Allow it in your browser's site settings.",
+merge_q:"The device you scanned is in a different space. Merge your space ({0} devices) into it? Your messages and files will join it.",merge_done:"Spaces merged ✓",merge_hint:"If two devices each created their own space, show a QR on one and scan it from the other to merge them into one space.",e_same:"Both devices are already in the same space."
+});
 
 let LANG=ls.get("lang",(navigator.language||"ar").toLowerCase().startsWith("ar")?"ar":"en");
 const t=(k,...a)=>{let s=(T[LANG]&&T[LANG][k])||T.ar[k]||k;a.forEach((v,i)=>{s=s.replace("{"+i+"}",v)});return s};
@@ -93,7 +115,7 @@ function applyLang(){document.documentElement.lang=LANG;document.documentElement
 function applyTheme(){const m=ls.get("theme","auto"),r=document.documentElement;if(m==="auto")r.removeAttribute("data-theme");else r.setAttribute("data-theme",m);const mt=$('meta[name=theme-color]');if(mt)mt.content=getComputedStyle(r).getPropertyValue("--bg").trim()||"#0A0F1A"}
 
 /* ---------- أيقونات ---------- */
-const P={attach:'<path d="M21 11.5l-8.6 8.6a5 5 0 01-7.1-7.1l8.9-8.9a3.4 3.4 0 014.8 4.8l-8.9 8.9a1.7 1.7 0 01-2.4-2.4l8-8"/>',send:'<path d="M3 11.5L21 3l-8.5 18-2.2-7.3L3 11.5z"/><path d="M10.3 13.7L21 3"/>',trash:'<path d="M4 7h16M10 11v6M14 11v6M6 7l1 13h10l1-13M9 7V4h6v3"/>',copy:'<rect x="9" y="9" width="11" height="11" rx="2"/><path d="M5 15V6a2 2 0 012-2h9"/>',dl:'<path d="M12 4v11M7 10l5 5 5-5M5 20h14"/>',scan:'<path d="M4 8V6a2 2 0 012-2h2M16 4h2a2 2 0 012 2v2M20 16v2a2 2 0 01-2 2h-2M8 20H6a2 2 0 01-2-2v-2M4 12h16"/>',gear:'<circle cx="12" cy="12" r="3"/><path d="M12 2.5v3M12 18.5v3M2.5 12h3M18.5 12h3M5.3 5.3l2.1 2.1M16.6 16.6l2.1 2.1M5.3 18.7l2.1-2.1M16.6 7.4l2.1-2.1"/>',x:'<path d="M6 6l12 12M18 6L6 18"/>',file:'<path d="M7 3h7l5 5v13H7z"/><path d="M14 3v5h5"/>',laptop:'<rect x="4" y="5" width="16" height="11" rx="1.5"/><path d="M2 19h20"/>',phone:'<rect x="7" y="2.5" width="10" height="19" rx="2.2"/><path d="M11 18.5h2"/>',open:'<path d="M14 4h6v6M20 4l-9 9M18 14v5a1 1 0 01-1 1H5a1 1 0 01-1-1V7a1 1 0 011-1h5"/>',check:'<path d="M5 12.5l4.5 4.5L19 7.5"/>',plus:'<path d="M12 5v14M5 12h14"/>',qr:'<rect x="4" y="4" width="6" height="6" rx="1"/><rect x="14" y="4" width="6" height="6" rx="1"/><rect x="4" y="14" width="6" height="6" rx="1"/><path d="M14 14h2v2h-2zM18 14h2M14 18h2M18 18h2v2"/>',search:'<circle cx="11" cy="11" r="6.5"/><path d="M16 16l4.5 4.5"/>',img:'<rect x="3.5" y="4.5" width="17" height="15" rx="2.5"/><circle cx="9" cy="10" r="1.6"/><path d="M4 17l5-5 4 4 3-3 4 4"/>',vid:'<rect x="3" y="6" width="13" height="12" rx="2.5"/><path d="M16 10l5-3v10l-5-3z"/>',note:'<path d="M5 4h14v16H5z"/><path d="M8.5 9h7M8.5 13h7M8.5 17h4"/>',chev:'<path d="M9 5l7 7-7 7"/>',link:'<path d="M10 14a4 4 0 005.7 0l3-3a4 4 0 00-5.7-5.7l-1 1M14 10a4 4 0 00-5.7 0l-3 3a4 4 0 005.7 5.7l1-1"/>'};
+const P={attach:'<path d="M21 11.5l-8.6 8.6a5 5 0 01-7.1-7.1l8.9-8.9a3.4 3.4 0 014.8 4.8l-8.9 8.9a1.7 1.7 0 01-2.4-2.4l8-8"/>',send:'<path d="M3 11.5L21 3l-8.5 18-2.2-7.3L3 11.5z"/><path d="M10.3 13.7L21 3"/>',trash:'<path d="M4 7h16M10 11v6M14 11v6M6 7l1 13h10l1-13M9 7V4h6v3"/>',copy:'<rect x="9" y="9" width="11" height="11" rx="2"/><path d="M5 15V6a2 2 0 012-2h9"/>',dl:'<path d="M12 4v11M7 10l5 5 5-5M5 20h14"/>',scan:'<path d="M4 8V6a2 2 0 012-2h2M16 4h2a2 2 0 012 2v2M20 16v2a2 2 0 01-2 2h-2M8 20H6a2 2 0 01-2-2v-2M4 12h16"/>',gear:'<circle cx="12" cy="12" r="3"/><path d="M12 2.5v3M12 18.5v3M2.5 12h3M18.5 12h3M5.3 5.3l2.1 2.1M16.6 16.6l2.1 2.1M5.3 18.7l2.1-2.1M16.6 7.4l2.1-2.1"/>',x:'<path d="M6 6l12 12M18 6L6 18"/>',file:'<path d="M7 3h7l5 5v13H7z"/><path d="M14 3v5h5"/>',laptop:'<rect x="4" y="5" width="16" height="11" rx="1.5"/><path d="M2 19h20"/>',phone:'<rect x="7" y="2.5" width="10" height="19" rx="2.2"/><path d="M11 18.5h2"/>',open:'<path d="M14 4h6v6M20 4l-9 9M18 14v5a1 1 0 01-1 1H5a1 1 0 01-1-1V7a1 1 0 011-1h5"/>',check:'<path d="M5 12.5l4.5 4.5L19 7.5"/>',plus:'<path d="M12 5v14M5 12h14"/>',qr:'<rect x="4" y="4" width="6" height="6" rx="1"/><rect x="14" y="4" width="6" height="6" rx="1"/><rect x="4" y="14" width="6" height="6" rx="1"/><path d="M14 14h2v2h-2zM18 14h2M14 18h2M18 18h2v2"/>',play:'<path d="M8 5.5v13l11-6.5z" fill="currentColor"/>',pause:'<path d="M8 5h3v14H8zM13 5h3v14h-3z" fill="currentColor"/>',mic:'<rect x="9" y="3" width="6" height="11" rx="3"/><path d="M5.5 11a6.5 6.5 0 0013 0M12 17.5V21M8.5 21h7"/>',back:'<path d="M21 5H9l-6 7 6 7h12z"/><path d="M13 9.5l5 5M18 9.5l-5 5"/>',bell:'<path d="M6 17V11a6 6 0 0112 0v6l1.5 2h-15z"/><path d="M10 21a2 2 0 004 0"/>',moon:'<path d="M20 14.5A8 8 0 019.5 4 8 8 0 1020 14.5z"/>',sun:'<circle cx="12" cy="12" r="4"/><path d="M12 2.5v2.5M12 19v2.5M2.5 12H5M19 12h2.5M5.3 5.3l1.8 1.8M16.9 16.9l1.8 1.8M5.3 18.7l1.8-1.8M16.9 7.1l1.8-1.8"/>',half:'<circle cx="12" cy="12" r="8.5"/><path d="M12 3.5v17" /><path d="M12 3.5a8.5 8.5 0 010 17z" fill="currentColor"/>',devices:'<rect x="3" y="5" width="13" height="9" rx="1.6"/><path d="M1.5 17.5h16"/><rect x="16.5" y="9" width="5" height="9.5" rx="1.4"/>',palette:'<path d="M12 3a9 9 0 100 18c1.3 0 2-.8 2-1.8 0-1.2-1-1.4-1-2.5 0-.9.7-1.5 1.7-1.5H17a4 4 0 004-4A8.5 8.5 0 0012 3z"/><circle cx="7.5" cy="11" r="1.1"/><circle cx="10.5" cy="7.5" r="1.1"/><circle cx="15.5" cy="8" r="1.1"/>',folder:'<path d="M3 7a2 2 0 012-2h4l2 2.5h8a2 2 0 012 2V17a2 2 0 01-2 2H5a2 2 0 01-2-2z"/>',lock:'<rect x="5" y="10.5" width="14" height="10" rx="2.5"/><path d="M8 10.5V8a4 4 0 018 0v2.5"/><circle cx="12" cy="15.5" r="1.3" fill="currentColor"/>',info:'<circle cx="12" cy="12" r="9"/><path d="M12 11v6M12 7.5v.5"/>',eye:'<path d="M2.5 12S6 5.5 12 5.5 21.5 12 21.5 12 18 18.5 12 18.5 2.5 12 2.5 12z"/><circle cx="12" cy="12" r="2.8"/>',vol:'<path d="M4 9.5h3.5L12 5.5v13l-4.5-4H4z"/><path d="M15.5 9a4 4 0 010 6M18 6.5a8 8 0 010 11"/>',tag:'<path d="M3 12V4.5A1.5 1.5 0 014.5 3H12l9 9-9 9z"/><circle cx="8" cy="8" r="1.3"/>',scale:'<path d="M4 20l6-6M20 4l-6 6M14 10l-4 4M4 14v6h6M20 10V4h-6"/>',search:'<circle cx="11" cy="11" r="6.5"/><path d="M16 16l4.5 4.5"/>',img:'<rect x="3.5" y="4.5" width="17" height="15" rx="2.5"/><circle cx="9" cy="10" r="1.6"/><path d="M4 17l5-5 4 4 3-3 4 4"/>',vid:'<rect x="3" y="6" width="13" height="12" rx="2.5"/><path d="M16 10l5-3v10l-5-3z"/>',note:'<path d="M5 4h14v16H5z"/><path d="M8.5 9h7M8.5 13h7M8.5 17h4"/>',chev:'<path d="M9 5l7 7-7 7"/>',link:'<path d="M10 14a4 4 0 005.7 0l3-3a4 4 0 00-5.7-5.7l-1 1M14 10a4 4 0 00-5.7 0l-3 3a4 4 0 005.7 5.7l1-1"/>'};
 const ic=(n,c="")=>`<svg class="i ${c}" viewBox="0 0 24 24" aria-hidden="true">${P[n]||""}</svg>`;
 const LOGO=`<svg class="lg" viewBox="0 0 64 64" fill="none" stroke-linejoin="round" stroke-linecap="round" aria-hidden="true"><rect width="64" height="64" rx="16" fill="#121A2B"/><g stroke="#EAF0FF" stroke-width="3"><path d="M14 26l18-9 18 9v20l-18 9-18-9z"/><path d="M14 26l18 9 18-9M32 35v20"/></g><circle cx="32" cy="35" r="4.6" fill="#FF8A3D"/></svg>`;
 
@@ -110,7 +132,7 @@ const normPhone=p=>{let d=String(p||"").replace(/\D/g,"");if(d.startsWith("0020"
 function defaultDevice(){const u=navigator.userAgent||"";if(/iPhone|iPad/.test(u))return t("d_iphone");if(/Android/.test(u))return t("d_android");if(/Linux|X11/.test(u))return t("d_linux");if(/Windows/.test(u))return t("d_win");if(/Mac/.test(u))return t("d_mac");return t("d_other")}
 const isPhoneDev=n=>/موبايل|android|iphone|phone|اندرويد|أندرويد|آيفون/i.test(n||"");
 function toast(m,ms=2400){const e=$("#toast");e.innerHTML="";const d=document.createElement("div");d.textContent=m;e.appendChild(d);clearTimeout(S.timers.toast);S.timers.toast=setTimeout(()=>{e.innerHTML=""},ms)}
-function errMsg(e){const m=String((e&&(e.message||e.error_description||e.error))||e||"").toLowerCase();for(const k of ["phone","invalid","already","limit","nospace","busy","storage_full"])if(m.includes(k)&&(k!=="invalid"||!m.includes("jwt")))return t("e_"+k);if(m.includes("fetch")||m.includes("network")||m.includes("failed"))return t("e_net");return t("e_generic")}
+function errMsg(e){const m=String((e&&(e.message||e.error_description||e.error))||e||"").toLowerCase();for(const k of ["phone","invalid","already","limit","nospace","busy","storage_full","same"])if(m.includes(k)&&(k!=="invalid"||!m.includes("jwt")))return t("e_"+k);if(m.includes("fetch")||m.includes("network")||m.includes("failed"))return t("e_net");return t("e_generic")}
 async function call(fn,args){const r=await sb.rpc(fn,args||{});if(r.error)throw r.error;return r.data}
 function ask(msg,danger){return new Promise(res=>{const o=document.createElement("div");o.className="ov mid";o.innerHTML=`<div class="dlg" role="dialog" aria-modal="true"><p>${esc(msg)}</p><div class="row"><button class="btn ghost" data-v="0">${t("no")}</button><button class="btn ${danger?"bad":""}" data-v="1">${t("yes")}</button></div></div>`;o.addEventListener("click",e=>{const b=e.target.closest("[data-v]");if(b||e.target===o){o.remove();res(!!b&&b.dataset.v==="1")}});$("#ovs").appendChild(o);$("[data-v='1']",o).focus()})}
 function closeOv(){$("#ovs").innerHTML="";stopScan();clearInterval(S.timers.inv);clearInterval(S.timers.invcd)}
@@ -131,6 +153,7 @@ async function boot(){
  let sp=null;
  try{sp=await call("my_space")}catch(e){await min;hideSplash();return welcome(errMsg(e))}
  await min;hideSplash();
+ if(sp&&hasPin())await lockNow();
  if(sp)enterApp(sp);else if(!ls.get("tour",false))tour(0);else welcome();
 }
 function hideSplash(){const s=$("#splash");s.classList.add("out");setTimeout(()=>s.remove(),600)}
@@ -260,7 +283,9 @@ async function enterApp(sp){
  <button id="newpill" class="hide" data-act="bottom">${esc(t("newer"))}</button>
  <footer class="comp"><button class="rb att" data-act="pick" aria-label="${esc(t("attach"))}" title="${esc(t("attach"))}">${ic("attach")}</button>
   <textarea id="ta" rows="1" dir="auto" placeholder="${esc(t("msg_ph"))}" aria-label="${esc(t("msg_ph"))}" enterkeyhint="send"></textarea>
-  <button class="rb snd" id="sendb" data-act="send" aria-label="${esc(t("send"))}" title="${esc(t("send"))}" disabled>${ic("send")}</button>
+  <button class="rb mic" id="micb" data-act="mic" aria-label="${esc(t("mic"))}" title="${esc(t("mic"))}">${ic("mic")}</button>
+  <button class="rb snd hide" id="sendb" data-act="send" aria-label="${esc(t("send"))}" title="${esc(t("send"))}" disabled>${ic("send")}</button>
+  <div id="recbar" class="recbar hide"><button class="rb rc" data-act="reccancel" aria-label="${esc(t("rec_cancel"))}" title="${esc(t("rec_cancel"))}">${ic("trash")}</button><span class="rdot"></span><span id="rect" class="rect">0:00</span><canvas id="recwave"></canvas><button class="rb snd" data-act="recsend" aria-label="${esc(t("send"))}" title="${esc(t("send"))}">${ic("send")}</button></div>
   <input type="file" id="fi" multiple class="hide"></footer>`;
  devCount();
  const ta=$("#ta");
@@ -275,8 +300,9 @@ async function enterApp(sp){
  S.timers.sync=setInterval(()=>{if(!S.online&&!document.hidden)syncNew()},8000);
  consumeShare();
  installBtn();
+ if(nOn())pushSubscribe();
 }
-function grow(){const ta=$("#ta");if(!ta)return;ta.style.height="auto";ta.style.height=Math.min(150,ta.scrollHeight)+"px";$("#sendb").disabled=!ta.value.trim()}
+function grow(){const ta=$("#ta");if(!ta)return;ta.style.height="auto";ta.style.height=Math.min(150,ta.scrollHeight)+"px";const has=!!ta.value.trim();$("#sendb").disabled=!has;$("#sendb").classList.toggle("hide",!has);$("#micb").classList.toggle("hide",has)}
 const nearBottom=()=>{const f=$("#feed");return !f||f.scrollHeight-f.scrollTop-f.clientHeight<160};
 function devCount(){const n=(S.space.devices||[]).length;const e=$("#dn");if(e)e.textContent=n>1?" · "+t("devices_n",n):""}
 function setStatus(on){S.online=on;const d=$("#dot"),s=$("#st");if(d)d.classList.toggle("on",on);if(s)s.textContent=on?t("connected"):t("connecting")}
@@ -343,6 +369,7 @@ function fixDays(){let prev="";$$("#inner .it").forEach(a=>{const d=$(".day",a),
 function linkify(s){return s.replace(/(https?:\/\/[^\s<]+)/g,u=>`<a href="${u}" target="_blank" rel="noopener noreferrer">${u}</a>`)}
 function host(u){try{return new URL(u).hostname.replace(/^www\./,"")}catch(e){return u}}
 function mediaHtml(it){
+ if(isVoice(it))return voiceHtml(it);
  const u=S.urls[it.file_path]&&S.urls[it.file_path].u;
  if(it.kind==="image")return u?`<button class="im" data-act="view" data-id="${it.id}" aria-label="${esc(it.file_name||"")}"><img data-p="${esc(it.file_path)}" src="${esc(u)}" alt="${esc(it.file_name||"")}" loading="lazy"></button>`:`<div class="sk" data-p="${esc(it.file_path)}"></div>`;
  if(it.kind==="video")return u?`<video data-p="${esc(it.file_path)}" src="${esc(u)}" controls preload="metadata" playsinline></video>`:`<div class="sk" data-p="${esc(it.file_path)}"></div>`;
@@ -494,7 +521,7 @@ function subscribe(){
  if(S.ch){try{sb.removeChannel(S.ch)}catch(e){}}
  const sid=S.space.id;
  S.ch=sb.channel("sb-"+sid)
-  .on("postgres_changes",{event:"INSERT",schema:"public",table:"items",filter:"space_id=eq."+sid},p=>{if(p.new){const fresh=!S.mine.has(p.new.id)&&!S.items.some(x=>x.id===p.new.id);addItem(p.new);if(fresh)beep()}})
+  .on("postgres_changes",{event:"INSERT",schema:"public",table:"items",filter:"space_id=eq."+sid},p=>{if(p.new){const fresh=!S.mine.has(p.new.id)&&!S.items.some(x=>x.id===p.new.id);addItem(p.new);if(fresh){beep();notifyIncoming(p.new)}}})
   .on("postgres_changes",{event:"DELETE",schema:"public",table:"items"},p=>{if(p.old&&p.old.id)removeItem(p.old.id)})
   .on("postgres_changes",{event:"*",schema:"public",table:"members"},onMembers)
   .subscribe(st=>{
@@ -506,14 +533,19 @@ async function onMembers(p){
  if(p.eventType==="DELETE"&&p.old&&p.old.user_id===S.uid){return checkKicked()}
  try{
   const sp=await call("my_space");if(!sp)return checkKicked();
+  if(sp.id!==S.space.id){toast(t("merge_done"));enterApp(sp);return}
   const before=(S.space.devices||[]).length;S.space=Object.assign(S.space,sp);devCount();
   const nm=$("#sn");if(nm)nm.textContent=sp.name;
-  if(p.eventType==="INSERT"&&p.new&&p.new.user_id!==S.uid&&sp.devices.length>before)toast(t("new_dev",p.new.device));
-  if($("#setbox"))openSettings(true);
+  if(sp.devices.length>before){
+   const nw=sp.devices.find(d=>p.new&&d.user_id===p.new.user_id&&!d.me);
+   if(nw)toast(t("new_dev",nw.device));
+   S.items=[];S.more=true;loadItems(true);
+  }
+  if($("#setbox")&&S.setPage&&S.setPage!=="home")setRender(S.setPage,"nofx");
  }catch(e){}
 }
 async function checkKicked(){
- try{const sp=await call("my_space");if(sp)return;}catch(e){return}
+ try{const sp=await call("my_space");if(sp){if(S.space&&sp.id!==S.space.id){enterApp(sp)}return}}catch(e){return}
  await sb.auth.signOut();const r=await sb.auth.signInAnonymously();if(r.data&&r.data.session)S.uid=r.data.session.user.id;
  closeOv();welcome(t("kicked"));
 }
@@ -567,12 +599,22 @@ function linkScan(){
  $("#lkbody").innerHTML=`<p style="margin:0;color:var(--mu)">${esc(t("scan_hint"))}</p>
   <div class="scan" id="scanbox"><video id="sv" playsinline muted></video></div><div class="msg" id="sm"></div>
   <label class="f">${esc(t("manual_code"))}<div class="row"><input class="in" id="mc" dir="ltr" maxlength="9" autocapitalize="characters" autocomplete="off" placeholder="ABCD 2345"><button class="btn" data-act="mcgo">${esc(t("approve"))}</button></div></label>`;
- startScan($("#scanbox"),async txt=>{const p=parseQR(txt);if(!p)return;if(p.type!=="savebox"){showSm(t("l_wrong_in"));return}await approve(p.code)},()=>{const b=$("#scanbox");if(b)b.remove();showSm(t("no_cam"))});
+ startScan($("#scanbox"),async txt=>{const p=parseQR(txt);if(!p)return;if(p.type==="sbi"){await mergeFlow(p.code);return}await approve(p.code)},()=>{const b=$("#scanbox");if(b)b.remove();showSm(t("no_cam"))});
 }
 function showSm(m){const e=$("#sm");if(!e)return;e.textContent=m;clearTimeout(S.timers.sm);S.timers.sm=setTimeout(()=>{if(e)e.textContent=""},3500)}
 async function approve(code){
  try{const dev=await call("approve_link",{p_code:code});stopScan();closeOv();toast(t("linked_ok",dev));await refreshSpace()}
- catch(e){showSm(errMsg(e))}
+ catch(e){if(/invalid/i.test(String(e&&e.message)))return mergeFlow(code);showSm(errMsg(e))}
+}
+let merging=false;
+async function mergeFlow(code){
+ if(merging)return;merging=true;
+ try{
+  const n=(S.space.devices||[]).length;
+  if(!(await ask(t("merge_q",n),true)))return;
+  try{const sp=await call("merge_into",{p_code:code});stopScan();closeOv();toast(t("merge_done"));enterApp(sp)}
+  catch(e){showSm(errMsg(e))}
+ }finally{merging=false}
 }
 async function linkShow(){
  stopScan();
@@ -607,46 +649,112 @@ function beep(){
  if(!ls.get("sound",false))return;
  try{const c=new (window.AudioContext||window.webkitAudioContext)(),o=c.createOscillator(),g=c.createGain();o.type="sine";o.frequency.setValueAtTime(880,c.currentTime);o.frequency.exponentialRampToValueAtTime(1320,c.currentTime+.12);g.gain.setValueAtTime(.0001,c.currentTime);g.gain.exponentialRampToValueAtTime(.12,c.currentTime+.02);g.gain.exponentialRampToValueAtTime(.0001,c.currentTime+.2);o.connect(g);g.connect(c.destination);o.start();o.stop(c.currentTime+.22);setTimeout(()=>c.close(),400)}catch(e){}
 }
-const tgl=(k,act,label)=>`<div class="sw2"><span>${esc(label)}</span><button class="tg" role="switch" aria-checked="${ls.get(k,k==="enter"||k==="showdev"||k==="compress")}" data-act="${act}" aria-label="${esc(label)}"><i></i></button></div>`;
-function setTabHtml(tab,sp,stats){
- if(tab==="general"){
-  const max=400*1048576,used=stats?+stats.bytes||0:0,pct=Math.min(100,Math.round(used/max*100));
-  const kinds=stats&&stats.kinds?Object.entries(stats.kinds).map(([k,n])=>`<span class="chip">${esc(t("k_"+k))} ${n}</span>`).join(""):"";
-  return `<section class="sec"><h3>${esc(t("s_space"))}</h3><label class="f">${esc(t("space_name"))}<div class="row"><input class="in" id="spn" maxlength="40" value="${esc(sp.name)}"><button class="btn ghost" data-act="svspace">${esc(t("save"))}</button></div></label><label class="f">${esc(t("phone"))}<input class="in" dir="ltr" value="${esc(sp.phone)}" readonly></label></section>
-  <section class="sec"><h3>${esc(t("s_this"))}</h3><div class="row"><input class="in" id="dvn" maxlength="40" value="${esc(sp.device)}" aria-label="${esc(t("device_name"))}"><button class="btn ghost" data-act="svdev">${esc(t("save"))}</button></div></section>
-  <section class="sec"><h3>${esc(t("storage"))}</h3>${stats?`<div class="bar"><i style="width:${Math.max(pct,used?2:0)}%"></i></div><div class="row" style="justify-content:space-between;color:var(--mu);font-size:.88rem"><span>${esc(fmtSize(used))} ${esc(t("st_of"))}</span><span>${esc(t("st_items",stats.total))}</span></div><div class="chips">${kinds}</div>`:`<small style="color:var(--mu)">...</small>`}<button class="btn ghost" data-act="export">${ic("dl")}${esc(t("export"))}</button></section>
-  <section class="sec"><h3>${esc(t("s_danger"))}</h3><button class="btn ghost" data-act="leave">${esc(t("leave"))}</button><button class="btn bad" data-act="wipe">${esc(t("wipe"))}</button></section>`;
- }
- if(tab==="devices"){
-  const devs=(sp.devices||[]).map(d=>`<div class="dev" style="--h:${hue(d.device)}"><span class="di">${ic(isPhoneDev(d.device)?"phone":"laptop")}</span><div><b>${esc(d.device)}${d.me?` <small>(${esc(t("this_dev"))})</small>`:""}</b><small>${d.me?esc(t("connected")):esc(t("last_seen",rel(d.last_seen)))}</small></div>${d.me?"":`<button class="btn ghost" style="padding:6px 12px" data-act="rmdev" data-id="${d.user_id}" data-n="${esc(d.device)}">${esc(t("remove"))}</button>`}</div>`).join("");
-  return `<section class="sec"><h3>${esc(t("s_devices"))} (${(sp.devices||[]).length}/6)</h3>${devs}</section>
-  <section class="sec"><button class="btn" data-act="linkshow">${ic("qr")}${esc(t("l_show"))}</button><button class="btn ghost" data-act="scan">${ic("scan")}${esc(t("l_scan"))}</button>${(sp.devices||[]).length>1?`<button class="btn ghost" data-act="rmothers">${esc(t("remove_others"))}</button>`:""}</section>`;
- }
- if(tab==="prefs"){
-  const th=ls.get("theme","auto"),mx=ls.get("max",25),fs=ls.get("font","m");
-  return `<section class="sec"><h3>${esc(t("s_look"))}</h3><div class="seg" role="group" aria-label="${esc(t("theme"))}">${["auto","light","dark"].map(k=>`<button data-act="theme" data-v="${k}" aria-pressed="${th===k}">${esc(t(k))}</button>`).join("")}</div><div class="seg" role="group" aria-label="${esc(t("lang"))}"><button data-act="lang" data-v="ar" aria-pressed="${LANG==="ar"}">العربية</button><button data-act="lang" data-v="en" aria-pressed="${LANG==="en"}">English</button></div>
-   <div class="f" style="display:grid;gap:6px"><span style="color:var(--mu);font-size:.9rem">${esc(t("font"))}</span><div class="seg" role="group">${["s","m","l","xl"].map(k=>`<button data-act="font" data-v="${k}" aria-pressed="${fs===k}">${esc(t("font_"+k))}</button>`).join("")}</div></div>${tgl("showdev","showdev",t("show_dev"))}</section>
-  <section class="sec"><h3>${esc(t("s_msgs"))}</h3>${tgl("enter","enter",t("enter_send"))}${tgl("sound","sound",t("sound"))}</section>
-  <section class="sec"><h3>${esc(t("s_files"))}</h3><label class="f"><span id="mxl">${esc(t("max_size",mx))}</span><input type="range" id="mx" min="1" max="50" value="${mx}"></label>${tgl("compress","cmp",t("compress"))}</section>`;
- }
- return `<section class="sec about"><div class="abt">${LOGO}<div><b>SaveBox</b><small>${esc(t("version"))} ${VER}</small></div></div><p style="margin:0">${esc(t("about_desc"))}</p><small style="color:var(--mu)">${esc(t("sync_hint"))}</small></section>
-  <section class="sec"><h3>${esc(t("how_title"))}</h3><ol class="how"><li>${esc(t("how1"))}</li><li>${esc(t("how2"))}</li><li>${esc(t("how3"))}</li><li>${esc(t("how4"))}</li></ol></section>
-  <section class="sec"><h3>${esc(t("shortcuts"))}</h3><div class="kb"><span><kbd>Enter</kbd>${esc(t("sc_send"))}</span><span><kbd>Shift</kbd>+<kbd>Enter</kbd>${esc(t("sc_nl"))}</span><span><kbd>Ctrl</kbd>+<kbd>V</kbd>${esc(t("sc_paste"))}</span><span><kbd>Esc</kbd>${esc(t("sc_esc"))}</span></div></section>
-  <section class="sec">${S.inst?`<button class="btn" data-act="install">${esc(t("install"))}</button>`:""}<button class="btn ghost" data-act="replay">${esc(t("replay"))}</button><button class="btn ghost" data-act="upd">${esc(t("update"))}</button></section>`;
+/* ---------- الإعدادات (نسخة أسهل ومتحركة) ---------- */
+const SPAGES=[
+ {k:"devices",i:"devices",c:"#3D7BFF"},{k:"notif",i:"bell",c:"#FF8A3D"},{k:"look",i:"palette",c:"#B879FF"},
+ {k:"files",i:"folder",c:"#19D3A2"},{k:"privacy",i:"lock",c:"#FF5C7A"},{k:"about",i:"info",c:"#8FA0C4"}];
+const spColor=k=>(SPAGES.find(p=>p.k===k)||{c:"#FF8A3D"}).c;
+function rw(i,c,label,hint,ctl,n){return `<div class="rw" style="--n:${n||0};--c:${c}"><span class="ri">${ic(i)}</span><div class="rt"><b>${esc(label)}</b>${hint?`<small>${esc(hint)}</small>`:""}</div>${ctl||""}</div>`}
+const tgb=(on,act,label)=>`<button class="tg" role="switch" aria-checked="${on}" data-act="${act}" aria-label="${esc(label)}"><i></i></button>`;
+function subOf(k,sp){
+ if(k==="devices")return t("devices_n",(sp.devices||[]).length);
+ if(k==="notif")return nOn()?t("on"):t("off");
+ if(k==="look")return t(ls.get("theme","auto"))+" · "+(LANG==="ar"?"العربية":"English");
+ if(k==="files")return S.stats?fmtSize(S.stats.bytes||0):t("st_files_sub");
+ if(k==="privacy")return hasPin()?t("lock_on"):t("lock_off");
+ return t("version")+" "+VER;
 }
-async function openSettings(tab,keep){
- tab=tab||S.setTab||"general";S.setTab=tab;
- await refreshSpace();
- const sp=S.space;let stats=null;
- if(tab==="general"){try{stats=await call("space_stats")}catch(e){}}
- const tabs=["general","devices","prefs","about"].map(k=>`<button data-act="stab" data-v="${k}" aria-pressed="${tab===k}">${esc(t("st_"+k))}</button>`).join("");
- const html=`<div class="sheet" id="setbox" role="dialog" aria-modal="true"><h2>${esc(t("settings"))}<button class="ib" data-act="closeov" aria-label="${esc(t("cancel"))}">${ic("x")}</button></h2><div class="seg stabs" role="tablist">${tabs}</div><div id="setbody" style="display:grid;gap:14px">${setTabHtml(tab,sp,stats)}</div></div>`;
- const ov=$("#ovs");const old=$("#setbox"),sc=keep&&old?old.scrollTop:0;
- ov.innerHTML=`<div class="ov">${html}</div>`;
- const ovEl=ov.firstChild;ovEl.addEventListener("click",e=>{if(e.target===ovEl)closeOv()});
- const sbx=$("#setbox");if(sc)sbx.scrollTop=sc;
+function setHome(sp){
+ const th=ls.get("theme","auto"),ini=(sp.name||"S").trim().slice(0,1).toUpperCase();
+ const max=400*1048576,pct=S.stats?Math.min(100,Math.round((S.stats.bytes||0)/max*100)):0;
+ return `<button class="prof" data-act="spage" data-v="account" style="--n:0"><span class="av">${esc(ini)}</span><span class="pt"><b>${esc(sp.name)}</b><small dir="ltr">${esc(sp.phone)}</small><span class="mini"><i style="width:${Math.max(pct,S.stats&&S.stats.bytes?3:0)}%"></i></span></span>${ic("chev","cv")}</button>
+ <div class="quick" style="--n:1">
+  <button class="qk" data-act="qtheme" aria-label="${esc(t("theme"))}"><span class="qi">${ic(th==="dark"?"moon":th==="light"?"sun":"half")}</span><small>${esc(t(th))}</small></button>
+  <button class="qk ${nOn()?"on":""}" data-act="qnotif" aria-label="${esc(t("sp_notif"))}"><span class="qi">${ic("bell")}</span><small>${esc(t("sp_notif"))}</small></button>
+  <button class="qk ${ls.get("sound",false)?"on":""}" data-act="qsound" aria-label="${esc(t("sound_short"))}"><span class="qi">${ic("vol")}</span><small>${esc(t("sound_short"))}</small></button>
+  <button class="qk ${hasPin()?"on":""}" data-act="qlock" aria-label="${esc(t("sp_privacy"))}"><span class="qi">${ic("lock")}</span><small>${esc(t("lock_short"))}</small></button>
+ </div>
+ <div class="list">${SPAGES.map((p,i)=>`<button class="nv" data-act="spage" data-v="${p.k}" style="--n:${i+2};--c:${p.c}"><span class="ri">${ic(p.i)}</span><span class="rt"><b>${esc(t("sp_"+p.k))}</b><small>${esc(subOf(p.k,sp))}</small></span>${ic("chev","cv")}</button>`).join("")}</div>`;
+}
+function setPageHtml(k,sp){
+ const c=spColor(k);
+ if(k==="account"){
+  const st=S.stats;
+  return `<div class="grp"><label class="fld" style="--n:0"><span>${esc(t("space_name"))}</span><div class="row"><input class="in" id="spn" maxlength="40" value="${esc(sp.name)}"><button class="btn ghost" data-act="svspace">${esc(t("save"))}</button></div></label>
+   <label class="fld" style="--n:1"><span>${esc(t("phone"))}</span><input class="in" dir="ltr" value="${esc(sp.phone)}" readonly></label>
+   <label class="fld" style="--n:2"><span>${esc(t("s_this"))}</span><div class="row"><input class="in" id="dvn" maxlength="40" value="${esc(sp.device)}"><button class="btn ghost" data-act="svdev">${esc(t("save"))}</button></div></label></div>
+   <p class="hint" style="--n:3">${esc(t("sync_hint"))}</p>`;
+ }
+ if(k==="devices"){
+  const devs=(sp.devices||[]).map((d,i)=>`<div class="dev" style="--h:${hue(d.device)};--n:${i}"><span class="di">${ic(isPhoneDev(d.device)?"phone":"laptop")}</span><div><b>${esc(d.device)}${d.me?` <small>(${esc(t("this_dev"))})</small>`:""}</b><small>${d.me?esc(t("connected")):esc(t("last_seen",rel(d.last_seen)))}</small></div>${d.me?"":`<button class="btn ghost" style="padding:6px 12px" data-act="rmdev" data-id="${d.user_id}" data-n="${esc(d.device)}">${esc(t("remove"))}</button>`}</div>`).join("");
+  const n=(sp.devices||[]).length;
+  return `<div class="grp">${devs}</div>
+   <div class="grp two" style="--n:${n+1}"><button class="btn" data-act="linkshow">${ic("qr")}${esc(t("l_show"))}</button><button class="btn ghost" data-act="scan">${ic("scan")}${esc(t("l_scan"))}</button></div>
+   <p class="hint" style="--n:${n+2}">${esc(t("merge_hint"))}</p>
+   ${n>1?`<button class="btn ghost" style="--n:${n+3}" data-act="rmothers">${esc(t("remove_others"))}</button>`:""}`;
+ }
+ if(k==="notif"){
+  const pushok=ls.get("pushok",false),on=nOn();
+  const stat=on?(pushok?t("n_status_push"):t("n_status_local")):t("n_status_off");
+  return `<div class="stat ${on?(pushok?"good":"mid"):"off"}" style="--n:0"><i></i>${esc(stat)}</div>
+   <div class="grp">${rw("bell",c,t("n_master"),t("n_master_h"),tgb(on,"nmaster",t("n_master")),1)}
+   ${rw("eye",c,t("n_preview"),t("n_preview_h"),tgb(ls.get("npreview",true),"npreview",t("n_preview")),2)}
+   ${rw("phone",c,t("n_focus"),t("n_focus_h"),tgb(ls.get("nfocus",false),"nfocus",t("n_focus")),3)}
+   ${rw("vol",c,t("sound"),t("n_sound_h"),tgb(ls.get("sound",false),"sound",t("sound")),4)}</div>
+   <button class="btn ghost" style="--n:5" data-act="ntest">${ic("bell")}${esc(t("n_test"))}</button>`;
+ }
+ if(k==="look"){
+  const th=ls.get("theme","auto"),fs=ls.get("font","m");
+  const thm=(v,lab)=>`<button class="thm ${v}" data-act="theme" data-v="${v}" aria-pressed="${th===v}"><span class="pv"><i></i><i></i><i></i></span><b>${esc(lab)}</b></button>`;
+  return `<div class="lbl" style="--n:0">${esc(t("theme"))}</div><div class="thms" style="--n:1">${thm("auto",t("auto"))}${thm("light",t("light"))}${thm("dark",t("dark"))}</div>
+   <div class="lbl" style="--n:2">${esc(t("lang"))}</div><div class="seg big" style="--n:3" role="group"><button data-act="lang" data-v="ar" aria-pressed="${LANG==="ar"}">العربية</button><button data-act="lang" data-v="en" aria-pressed="${LANG==="en"}">English</button></div>
+   <div class="lbl" style="--n:4">${esc(t("font"))}</div><div class="fonts" style="--n:5">${["s","m","l","xl"].map(f=>`<button class="ft" data-act="font" data-v="${f}" aria-pressed="${fs===f}"><span style="font-size:${{s:".9rem",m:"1.05rem",l:"1.3rem",xl:"1.6rem"}[f]}">${LANG==="ar"?"أب":"Aa"}</span><small>${esc(t("font_"+f))}</small></button>`).join("")}</div>
+   <div class="grp" style="--n:6">${rw("tag",c,t("show_dev"),"",tgb(ls.get("showdev",true),"showdev",t("show_dev")),0)}${rw("send",c,t("enter_send"),"",tgb(ls.get("enter",true),"enter",t("enter_send")),1)}</div>`;
+ }
+ if(k==="files"){
+  const st=S.stats,max=400*1048576,used=st?+st.bytes||0:0,pct=Math.min(100,Math.round(used/max*100));
+  const kinds=st&&st.kinds?Object.entries(st.kinds).map(([x,n])=>`<span class="chip">${esc(t("k_"+x))} ${n}</span>`).join(""):"";
+  const mx=ls.get("max",25);
+  return `<div class="meter" style="--n:0"><div class="mt"><b id="mused">${esc(fmtSize(used))}</b><span>${esc(t("st_of"))}</span></div><div class="bar"><i id="mbar" style="width:${Math.max(pct,used?2:0)}%"></i></div><div class="chips" id="mchips">${kinds}</div></div>
+   <div class="grp">${rw("scale",c,t("compress"),"",tgb(ls.get("compress",true),"cmp",t("compress")),1)}</div>
+   <label class="fld" style="--n:2"><span id="mxl">${esc(t("max_size",mx))}</span><input type="range" id="mx" min="1" max="50" value="${mx}"></label>
+   <button class="btn ghost" style="--n:3" data-act="export">${ic("dl")}${esc(t("export"))}</button>`;
+ }
+ if(k==="privacy"){
+  const al=ls.get("autolock",1);
+  return `<div class="grp">${rw("lock",c,t("pin_lock"),t("pin_lock_h"),tgb(hasPin(),"pin",t("pin_lock")),0)}</div>
+   ${hasPin()?`<div class="lbl" style="--n:1">${esc(t("autolock"))}</div><div class="seg big" style="--n:2" role="group">${[0,1,5,15].map(m=>`<button data-act="alock" data-v="${m}" aria-pressed="${al===m}">${esc(t("al_"+m))}</button>`).join("")}</div>`:""}
+   <div class="lbl" style="--n:3">${esc(t("s_danger"))}</div>
+   <button class="btn ghost" style="--n:4" data-act="leave">${esc(t("leave"))}</button><button class="btn bad" style="--n:5" data-act="wipe">${esc(t("wipe"))}</button>`;
+ }
+ return `<div class="abt" style="--n:0">${LOGO}<div><b>SaveBox</b><small>${esc(t("version"))} ${VER}</small></div></div>
+  <p class="hint" style="--n:1;font-size:1rem">${esc(t("about_desc"))}</p>
+  <div class="grp" style="--n:2"><h4>${esc(t("how_title"))}</h4><ol class="how"><li>${esc(t("how1"))}</li><li>${esc(t("how2"))}</li><li>${esc(t("how3"))}</li><li>${esc(t("how4"))}</li></ol></div>
+  <div class="grp" style="--n:3"><h4>${esc(t("shortcuts"))}</h4><div class="kb"><span><kbd>Enter</kbd>${esc(t("sc_send"))}</span><span><kbd>Shift</kbd>+<kbd>Enter</kbd>${esc(t("sc_nl"))}</span><span><kbd>Ctrl</kbd>+<kbd>V</kbd>${esc(t("sc_paste"))}</span><span><kbd>Esc</kbd>${esc(t("sc_esc"))}</span></div></div>
+  ${S.inst?`<button class="btn" style="--n:4" data-act="install">${esc(t("install"))}</button>`:""}<button class="btn ghost" style="--n:5" data-act="replay">${esc(t("replay"))}</button><button class="btn ghost" style="--n:6" data-act="upd">${esc(t("update"))}</button>`;
+}
+function setRender(page,dir){
+ const sp=S.space;S.setPage=page;
+ const body=page==="home"?setHome(sp):setPageHtml(page,sp);
+ const title=page==="home"?t("settings"):t("sp_"+page);
+ const root=$("#setroot");if(!root)return;
+ $("#sethead",root).innerHTML=`${page==="home"?"":`<button class="ib" data-act="sback" aria-label="${esc(t("back"))}">${ic("chev","bk")}</button>`}<h2>${esc(title)}</h2><button class="ib" data-act="closeov" aria-label="${esc(t("cancel"))}">${ic("x")}</button>`;
+ const pg=$("#setpg",root);
+ pg.className="spg "+(dir||"");pg.style.setProperty("--pc",page==="home"?"#FF8A3D":spColor(page));
+ pg.innerHTML=body;
+ void pg.offsetWidth;
  const mx=$("#mx");if(mx)mx.addEventListener("input",e=>{ls.set("max",+e.target.value);$("#mxl").textContent=t("max_size",e.target.value)});
+ const sb2=$("#setbox");if(sb2)sb2.scrollTop=0;
 }
+async function openSettings(page,keep){
+ await refreshSpace();
+ const ov=$("#ovs");
+ ov.innerHTML=`<div class="ov"><div class="sheet" id="setbox" role="dialog" aria-modal="true"><div id="setroot"><div class="shead" id="sethead"></div><div id="setpg"></div></div></div></div>`;
+ const ovEl=ov.firstChild;ovEl.addEventListener("click",e=>{if(e.target===ovEl)closeOv()});
+ setRender(page||"home","");
+ call("space_stats").then(st=>{S.stats=st;if(!$("#setroot"))return;const p=S.setPage;if(p==="home"||p==="files"){const sc=$("#setbox").scrollTop;setRender(p,"nofx");$("#setbox").scrollTop=sc}}).catch(()=>{});
+}
+
 async function exportText(){
  const rows=[];let from=0;
  for(;;){const {data}=await sb.from("items").select("kind,body,device,created_at").eq("space_id",S.space.id).in("kind",["text","link"]).order("created_at",{ascending:true}).range(from,from+999);if(!data||!data.length)break;rows.push(...data);if(data.length<1000)break;from+=1000}
@@ -659,6 +767,217 @@ async function updateApp(){
  try{if(navigator.serviceWorker){for(const r of await navigator.serviceWorker.getRegistrations())await r.unregister()}for(const k of await caches.keys())if(k!=="sb-share")await caches.delete(k)}catch(e){}
  location.reload();
 }
+
+/* ---------- رسائل صوتية (زي واتساب) ---------- */
+const VBARS=34;
+function vBars(seed){let h=2166136261;for(const c of String(seed))h=Math.imul(h^c.charCodeAt(0),16777619);const r=[];for(let i=0;i<VBARS;i++){h=Math.imul(h^(h>>>13),1274126177);const v=((h>>>0)%1000)/1000;const env=.35+.65*Math.sin((i+2)/(VBARS+3)*Math.PI);r.push(Math.max(.16,Math.min(1,.18+v*.82*env)))}return r}
+const isVoice=it=>it&&it.kind==="audio"&&/^voice-/.test(it.file_name||"");
+const voiceSecs=it=>{const m=/-(\d+)s\.[a-z0-9]+$/i.exec(it.file_name||"");return m?+m[1]:0};
+const fmtT=s=>{s=Math.max(0,Math.round(s));return Math.floor(s/60)+":"+String(s%60).padStart(2,"0")};
+function voiceHtml(it){
+ const bars=vBars(it.file_path||it.id).map((v,i)=>`<i style="height:${Math.round(v*100)}%"></i>`).join("");
+ return `<div class="vo" data-id="${it.id}"><button class="vp" data-act="vplay" data-id="${it.id}" aria-label="${esc(t("play"))}">${ic("play")}</button><div class="vw" data-act="vseek" data-id="${it.id}">${bars}</div><span class="vt">${fmtT(voiceSecs(it))}</span><button class="vs" data-act="vspeed" data-id="${it.id}" aria-label="x">1×</button></div>`;
+}
+const VP={a:null,id:null,rate:1};
+function voiceEl(id){return $(`.vo[data-id="${id}"]`)}
+function voicePaint(id,p,playing){
+ const el=voiceEl(id);if(!el)return;
+ const bars=$$(".vw i",el),n=Math.round(p*bars.length);
+ bars.forEach((b,i)=>b.classList.toggle("on",i<n));
+ el.classList.toggle("playing",!!playing);
+ const bt=$(".vp",el);if(bt)bt.innerHTML=ic(playing?"pause":"play");
+}
+function voiceStop(){if(VP.a){VP.a.pause();voicePaint(VP.id,0,false);VP.a=null;VP.id=null}}
+async function voicePlay(id){
+ if(VP.id===id&&VP.a){if(VP.a.paused)VP.a.play();else VP.a.pause();return}
+ voiceStop();
+ const it=S.items.find(x=>x.id===id);if(!it)return;
+ let u=S.urls[it.file_path]&&S.urls[it.file_path].u;
+ if(!u){const r=await sb.storage.from("savebox").createSignedUrl(it.file_path,21600);if(r.error||!r.data){toast(errMsg(r.error));return}u=r.data.signedUrl;S.urls[it.file_path]={u,e:Date.now()+21000e3}}
+ const a=new Audio();a.preload="auto";a.src=u;a.playbackRate=VP.rate;VP.a=a;VP.id=id;
+ const known=voiceSecs(it);
+ const dur=()=>isFinite(a.duration)&&a.duration>0?a.duration:known||1;
+ a.addEventListener("loadedmetadata",()=>{if(a.duration===Infinity){a.currentTime=1e101;a.addEventListener("timeupdate",function f(){a.removeEventListener("timeupdate",f);a.currentTime=0},{once:true})}});
+ a.addEventListener("timeupdate",()=>{if(VP.a===a)voicePaint(id,Math.min(1,a.currentTime/dur()),!a.paused)});
+ a.addEventListener("play",()=>voicePaint(id,a.currentTime/dur(),true));
+ a.addEventListener("pause",()=>voicePaint(id,a.currentTime/dur(),false));
+ a.addEventListener("ended",()=>{voicePaint(id,0,false);if(VP.a===a){VP.a=null;VP.id=null}});
+ a.addEventListener("error",()=>{toast(t("e_generic"));voicePaint(id,0,false)});
+ try{await a.play()}catch(e){}
+}
+function voiceSeek(id,ev){
+ const el=voiceEl(id);if(!el)return;
+ if(VP.id!==id||!VP.a){voicePlay(id);return}
+ const r=$(".vw",el).getBoundingClientRect(),p=Math.min(1,Math.max(0,(ev.clientX-r.left)/r.width));
+ const it=S.items.find(x=>x.id===id),d=isFinite(VP.a.duration)&&VP.a.duration>0?VP.a.duration:voiceSecs(it)||1;
+ try{VP.a.currentTime=p*d}catch(e){}
+}
+function voiceSpeed(id){
+ VP.rate=VP.rate===1?1.5:VP.rate===1.5?2:1;
+ $$(".vs").forEach(b=>b.textContent=(VP.rate===1.5?"1.5":VP.rate)+"×");
+ if(VP.a)VP.a.playbackRate=VP.rate;
+}
+/* التسجيل */
+const REC={on:false};
+async function startRec(){
+ if(REC.on||!S.space)return;
+ if(!navigator.mediaDevices||!navigator.mediaDevices.getUserMedia||!window.MediaRecorder){toast(t("rec_unsupported"));return}
+ let stream;
+ try{stream=await navigator.mediaDevices.getUserMedia({audio:{echoCancellation:true,noiseSuppression:true,autoGainControl:true}})}
+ catch(e){toast(t("mic_denied"));return}
+ voiceStop();
+ const mime=["audio/webm;codecs=opus","audio/webm","audio/mp4","audio/ogg;codecs=opus"].find(m=>MediaRecorder.isTypeSupported(m))||"";
+ const rec=new MediaRecorder(stream,mime?{mimeType:mime}:undefined),chunks=[];
+ rec.ondataavailable=e=>{if(e.data&&e.data.size)chunks.push(e.data)};
+ Object.assign(REC,{on:true,rec,stream,chunks,mime:rec.mimeType||mime||"audio/webm",t0:Date.now(),bars:[],send:false});
+ let ac=null,an=null;
+ try{ac=new (window.AudioContext||window.webkitAudioContext)();const src=ac.createMediaStreamSource(stream);an=ac.createAnalyser();an.fftSize=256;src.connect(an)}catch(e){}
+ REC.ac=ac;
+ const bar=$("#recbar");bar.classList.remove("hide");$(".comp").classList.add("recording");
+ const cv=$("#recwave"),cx=cv.getContext("2d"),buf=an?new Uint8Array(an.frequencyBinCount):null;
+ const fit=()=>{const r=cv.getBoundingClientRect(),d=devicePixelRatio||1;cv.width=Math.max(1,r.width*d);cv.height=Math.max(1,r.height*d)};fit();
+ let last=0;
+ const draw=ts=>{
+  if(!REC.on)return;
+  if(ts-last>55){last=ts;let lv=.08;if(an){an.getByteTimeDomainData(buf);let m=0;for(let i=0;i<buf.length;i++)m=Math.max(m,Math.abs(buf[i]-128));lv=Math.min(1,m/90)}
+   REC.bars.push(Math.max(.08,lv))}
+  const w=cv.width,h=cv.height,bw=3*(devicePixelRatio||1),gap=3*(devicePixelRatio||1),n=Math.floor(w/(bw+gap));
+  cx.clearRect(0,0,w,h);cx.fillStyle=getComputedStyle(document.documentElement).getPropertyValue("--ac").trim()||"#FF8A3D";
+  const bs=REC.bars.slice(-n);
+  bs.forEach((v,i)=>{const x=w-(bs.length-i)*(bw+gap),bh=Math.max(4,v*h);cx.beginPath();cx.roundRect?cx.roundRect(x,(h-bh)/2,bw,bh,bw/2):cx.rect(x,(h-bh)/2,bw,bh);cx.fill()});
+  REC.raf=requestAnimationFrame(draw);
+ };
+ REC.raf=requestAnimationFrame(draw);
+ const tick=()=>{const s=(Date.now()-REC.t0)/1000;const el=$("#rect");if(el)el.textContent=fmtT(s);if(s>=300)stopRec(true)};
+ tick();REC.iv=setInterval(tick,250);
+ rec.onstop=()=>finishRec();
+ rec.start(250);
+ if(navigator.vibrate)try{navigator.vibrate(18)}catch(e){}
+}
+function stopRec(send){
+ if(!REC.on)return;
+ REC.send=!!send;REC.on=false;
+ clearInterval(REC.iv);cancelAnimationFrame(REC.raf);
+ try{REC.rec.state!=="inactive"&&REC.rec.stop()}catch(e){finishRec()}
+}
+async function finishRec(){
+ const secs=Math.max(1,Math.round((Date.now()-REC.t0)/1000));
+ try{REC.stream.getTracks().forEach(x=>x.stop())}catch(e){}
+ try{REC.ac&&REC.ac.close()}catch(e){}
+ const bar=$("#recbar");if(bar)bar.classList.add("hide");const c=$(".comp");if(c)c.classList.remove("recording");
+ if(!REC.send)return;
+ if(secs<1||!REC.chunks.length)return;
+ const type=(REC.mime||"audio/webm").split(";")[0];
+ const ext=/mp4/.test(type)?"m4a":/ogg/.test(type)?"ogg":"webm";
+ const d=new Date(),nm=`voice-${d.getFullYear()}${pad(d.getMonth()+1)}${pad(d.getDate())}-${pad(d.getHours())}${pad(d.getMinutes())}${pad(d.getSeconds())}-${secs}s.${ext}`;
+ const f=new File([new Blob(REC.chunks,{type})],nm,{type});
+ await sendFiles([f]);
+}
+
+/* ---------- الإشعارات (محلي + Web Push) ---------- */
+const nSupported=()=>"Notification" in window;
+const nPerm=()=>nSupported()?Notification.permission:"denied";
+const nOn=()=>ls.get("notif",false)&&nPerm()==="granted";
+function b64u(s){const p="=".repeat((4-s.length%4)%4),b=(s+p).replace(/-/g,"+").replace(/_/g,"/"),r=atob(b),o=new Uint8Array(r.length);for(let i=0;i<r.length;i++)o[i]=r.charCodeAt(i);return o}
+function ab2b64u(buf){let s="";new Uint8Array(buf).forEach(c=>s+=String.fromCharCode(c));return btoa(s).replace(/\+/g,"-").replace(/\//g,"_").replace(/=+$/,"")}
+async function swReg(){if(!("serviceWorker" in navigator))return null;try{return await Promise.race([navigator.serviceWorker.ready,new Promise(r=>setTimeout(()=>r(null),1500))])}catch(e){return null}}
+async function pushSubscribe(){
+ try{
+  if(!CFG.vapid||!("PushManager" in window))return false;
+  const reg=await swReg();if(!reg)return false;
+  let sub=await reg.pushManager.getSubscription();
+  if(!sub)sub=await reg.pushManager.subscribe({userVisibleOnly:true,applicationServerKey:b64u(CFG.vapid)});
+  const j=sub.toJSON();
+  await call("save_push",{p_endpoint:j.endpoint,p_p256dh:j.keys.p256dh,p_auth:j.keys.auth,p_preview:ls.get("npreview",true)});
+  ls.set("pushok",true);return true;
+ }catch(e){ls.set("pushok",false);return false}
+}
+async function pushUnsubscribe(){
+ try{const reg=await swReg();const sub=reg&&await reg.pushManager.getSubscription();if(sub)await sub.unsubscribe();await call("remove_push")}catch(e){}
+ ls.set("pushok",false);
+}
+async function enableNotif(){
+ if(!nSupported()){toast(t("n_unsupported"));return false}
+ let p=Notification.permission;
+ if(p==="default")p=await Notification.requestPermission();
+ if(p!=="granted"){ls.set("notif",false);toast(t("n_blocked"));return false}
+ ls.set("notif",true);
+ const ok=await pushSubscribe();
+ toast(ok?t("n_on_push"):t("n_on_local"));
+ return true;
+}
+async function disableNotif(){ls.set("notif",false);await pushUnsubscribe()}
+async function showLocal(title,body,tag){
+ try{
+  const reg=await swReg();
+  const opts={body,tag:tag||"sb",icon:"icon-192.png",badge:"icon-192.png",renotify:true,dir:"auto"};
+  if(reg&&reg.showNotification)await reg.showNotification(title,opts);else new Notification(title,opts);
+ }catch(e){}
+}
+function notifBody(it){
+ if(!ls.get("npreview",true))return t("n_new");
+ if(it.kind==="text")return String(it.body||"").slice(0,140);
+ if(it.kind==="link")return "🔗 "+String(it.body||"").slice(0,120);
+ if(it.kind==="image")return "📷 "+t("tab_images");
+ if(it.kind==="video")return "🎬 "+t("tab_videos");
+ if(it.kind==="audio")return isVoice(it)?"🎤 "+t("n_voice"):"🎵 "+(it.file_name||"");
+ return "📎 "+(it.file_name||"");
+}
+function notifyIncoming(it){
+ if(!nOn())return;
+ const active=!document.hidden&&document.hasFocus();
+ if(active&&!ls.get("nfocus",false))return;
+ showLocal(it.device||"SaveBox",notifBody(it),"sb-"+(S.space&&S.space.id));
+}
+/* ---------- قفل التطبيق بـ PIN ---------- */
+async function pinHash(p){const d=await crypto.subtle.digest("SHA-256",new TextEncoder().encode("sb|"+p));return ab2b64u(d)}
+const hasPin=()=>!!ls.get("pin",null);
+function pinPad(title,sub,onDone,opts){
+ opts=opts||{};
+ const o=document.createElement("div");o.className="pinov"+(opts.full?" full":"");
+ o.innerHTML=`<div class="pin" role="dialog" aria-modal="true"><div class="pinlogo">${LOGO}</div><h2>${esc(title)}</h2><p>${esc(sub||"")}</p><div class="pdots"><i></i><i></i><i></i><i></i></div>
+  <div class="pkeys">${[1,2,3,4,5,6,7,8,9].map(n=>`<button data-k="${n}">${n}</button>`).join("")}<button class="pk2" data-k="x" aria-label="${esc(t("cancel"))}">${opts.full?"":ic("x")}</button><button data-k="0">0</button><button class="pk2" data-k="b" aria-label="⌫">${ic("back")}</button></div></div>`;
+ let v="";
+ const dots=()=>$$(".pdots i",o).forEach((d,i)=>d.classList.toggle("on",i<v.length));
+ const press=async k=>{
+  if(k==="x"){if(!opts.full){o.remove();onDone(null)}return}
+  if(k==="b")v=v.slice(0,-1);else if(v.length<4)v+=k;
+  dots();
+  if(v.length===4){
+   const r=await onDone(v,o);
+   if(r===false){const p=$(".pin",o);p.classList.remove("shake");void p.offsetWidth;p.classList.add("shake");if(navigator.vibrate)try{navigator.vibrate(60)}catch(e){}setTimeout(()=>{v="";dots()},380)}
+   else{o.classList.add("ok");setTimeout(()=>o.remove(),380)}
+  }
+ };
+ o.addEventListener("click",e=>{const b=e.target.closest("[data-k]");if(b)press(b.dataset.k)});
+ o._key=e=>{if(/^[0-9]$/.test(e.key))press(e.key);else if(e.key==="Backspace")press("b");else if(e.key==="Escape")press("x")};
+ document.body.appendChild(o);
+ const kh=e=>{if(!o.isConnected){document.removeEventListener("keydown",kh);return}o._key(e)};document.addEventListener("keydown",kh);
+ return o;
+}
+function lockNow(){
+ if(!hasPin()||$(".pinov.full"))return Promise.resolve();
+ return new Promise(res=>{
+  pinPad(t("lock_title"),t("lock_sub"),async v=>{if((await pinHash(v))===ls.get("pin")){S.unlockedAt=Date.now();res();return true}return false},{full:true});
+ });
+}
+async function setPin(){
+ const a=await new Promise(r=>pinPad(t("pin_new"),t("pin_new_s"),v=>{r(v);return true}));
+ if(!a)return false;
+ const b=await new Promise(r=>pinPad(t("pin_again"),t("pin_again_s"),v=>{if(v===null){r(null);return true}if(v===a){r(v);return true}return false}));
+ if(!b)return false;
+ ls.set("pin",await pinHash(a));S.unlockedAt=Date.now();toast(t("pin_set"));return true;
+}
+async function clearPin(){
+ const ok=await new Promise(r=>pinPad(t("pin_enter"),t("pin_enter_s"),async v=>{if(v===null){r(false);return true}if((await pinHash(v))===ls.get("pin")){r(true);return true}return false}));
+ if(ok){ls.set("pin",null);toast(t("pin_off"))}
+ return ok;
+}
+document.addEventListener("visibilitychange",()=>{
+ if(document.hidden){S.hiddenAt=Date.now();return}
+ const mins=ls.get("autolock",1);
+ if(hasPin()&&S.space&&S.hiddenAt&&(Date.now()-S.hiddenAt)>=mins*60000)lockNow();
+});
 
 /* ---------- شاشة الترحيب المتحركة ---------- */
 const SCN=[
@@ -744,10 +1063,23 @@ async function doDelete(id){
 }
 function relang(){
  if($(".tour")){tour(S.tourI);return}
- if(S.space){const tab=S.setTab;enterApp(S.space).then(()=>openSettings(tab||"prefs"))}else welcome();
+ if(S.space){const pg=S.setPage;enterApp(S.space).then(()=>openSettings(pg&&pg!=="home"?pg:"look"))}else welcome();
 }
 const flip=(k,d)=>{const v=!ls.get(k,d);ls.set(k,v);return v};
 const A={
+ spage(b){setRender(b.dataset.v,"fwd")},sback(){setRender("home","bwd")},
+ qtheme(b){const o=["auto","light","dark"],n=o[(o.indexOf(ls.get("theme","auto"))+1)%3];ls.set("theme",n);applyTheme();setRender("home","nofx")},
+ async qnotif(){if(nOn())await disableNotif();else await enableNotif();setRender("home","nofx")},
+ qsound(){const v=flip("sound",false);if(v)beep();setRender("home","nofx")},
+ async qlock(){if(hasPin())await clearPin();else await setPin();setRender("home","nofx")},
+ async nmaster(b){if(nOn())await disableNotif();else await enableNotif();setRender("notif","nofx")},
+ async npreview(b){const v=flip("npreview",true);b.setAttribute("aria-checked",v);if(ls.get("pushok",false))pushSubscribe()},
+ nfocus(b){b.setAttribute("aria-checked",flip("nfocus",false))},
+ ntest(){if(nPerm()!=="granted"){enableNotif().then(ok=>ok&&showLocal("SaveBox",t("n_test_b"),"sb-test"));return}showLocal("SaveBox",t("n_test_b"),"sb-test")},
+ async pin(){if(hasPin())await clearPin();else await setPin();setRender("privacy","nofx")},
+ alock(b){ls.set("autolock",+b.dataset.v);$$("[data-act=alock]").forEach(x=>x.setAttribute("aria-pressed",x===b))},
+ vplay(b){voicePlay(b.dataset.id)},vspeed(b){voiceSpeed(b.dataset.id)},
+ mic(){startRec()},recsend(){stopRec(true)},reccancel(){stopRec(false)},
  new(){formNew()},home(){welcome()},linkv(){formLink("show")},mk(b){mkSpace(b)},qr(b){showQR(b)},cancellink(){cancelLink()},
  lmode2(b){formLink(b.dataset.v)},joingo(){const v=($("#mc").value||"").replace(/\s/g,"").toUpperCase();if(v.length===8)joinWith(v);else $("#m").textContent=t("e_invalid")},
  lang(b){LANG=b.dataset.v;ls.set("lang",LANG);applyLang();relang()},
@@ -760,7 +1092,6 @@ const A={
  showdev(b){b.setAttribute("aria-checked",flip("showdev",true));applyPrefs()},
  enter(b){b.setAttribute("aria-checked",flip("enter",true))},
  sound(b){const v=flip("sound",false);b.setAttribute("aria-checked",v);if(v)beep()},
- stab(b){openSettings(b.dataset.v)},
  settings(){openSettings()},scan(){openLink("scan")},linkshow(){openLink("show")},lmode(b){openLink(b.dataset.v)},
  closeov(){closeOv()},
  mcgo(){const v=($("#mc").value||"").replace(/\s/g,"").toUpperCase();if(v.length===8)approve(v);else showSm(t("e_invalid"))},
@@ -779,8 +1110,8 @@ const A={
  },
  async svspace(){const v=$("#spn").value.trim();if(!v)return;try{await call("rename_space",{p_name:v});S.space.name=v;$("#sn").textContent=v;toast(t("saved"))}catch(e){toast(errMsg(e))}},
  async svdev(){const v=$("#dvn").value.trim();if(!v)return;try{await call("rename_device",{p_name:v});S.space.device=v;toast(t("saved"))}catch(e){toast(errMsg(e))}},
- async rmdev(b){if(!(await ask(t("c_remove",b.dataset.n),true)))return;try{await call("remove_device",{p_user:b.dataset.id});await openSettings("devices",true)}catch(e){toast(errMsg(e))}},
- async rmothers(){if(!(await ask(t("c_others"),true)))return;try{await call("remove_other_devices");await openSettings("devices",true)}catch(e){toast(errMsg(e))}},
+ async rmdev(b){if(!(await ask(t("c_remove",b.dataset.n),true)))return;try{await call("remove_device",{p_user:b.dataset.id});await openSettings("devices")}catch(e){toast(errMsg(e))}},
+ async rmothers(){if(!(await ask(t("c_others"),true)))return;try{await call("remove_other_devices");await openSettings("devices")}catch(e){toast(errMsg(e))}},
  async leave(){if(!(await ask(t("c_leave"),true)))return;try{await call("leave_space")}catch(e){toast(errMsg(e));return}await resetIdentity();welcome()},
  async wipe(){if(!(await ask(t("c_wipe"),true)))return;
   try{
@@ -793,9 +1124,10 @@ const A={
  async install(){if(!S.inst)return;S.inst.prompt();try{await S.inst.userChoice}catch(e){}S.inst=null;closeOv()}
 };
 async function resetIdentity(){closeOv();leaveApp();try{await sb.auth.signOut()}catch(e){}const r=await sb.auth.signInAnonymously();if(r.data&&r.data.session)S.uid=r.data.session.user.id}
-document.addEventListener("click",e=>{const b=e.target.closest("[data-act]");if(!b)return;const f=A[b.dataset.act];if(f){e.preventDefault();f(b)}});
+document.addEventListener("click",e=>{const b=e.target.closest("[data-act]");if(!b)return;if(b.dataset.act==="vseek"){voiceSeek(b.dataset.id,e);return}const f=A[b.dataset.act];if(f){e.preventDefault();f(b)}});
 document.addEventListener("keydown",e=>{
  if(e.key==="Enter"&&e.target.id==="mc"){e.preventDefault();if($("#lkbox"))A.mcgo();else A.joingo()}
+ if(REC.on){if(e.key==="Escape")stopRec(false);else if(e.key==="Enter"&&!e.shiftKey){e.preventDefault();stopRec(true)}}
  if($(".viewer")){if(e.key==="ArrowLeft")vnav(-1);else if(e.key==="ArrowRight")vnav(1)}
 });
 document.addEventListener("input",e=>{if(e.target.id==="sq"){clearTimeout(S.timers.q);S.timers.q=setTimeout(()=>{S.q=e.target.value.trim();S.more=true;renderFeed();loadItems(true)},300)}});

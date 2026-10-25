@@ -1,1 +1,1 @@
-window.SB_CFG={url:"https://eixcnhheoanrnzivowml.supabase.co",key:"sb_publishable_59C145Xdf6sH8TwhAzbAjQ__tP-pIyK"};
+window.SB_CFG={url:"https://eixcnhheoanrnzivowml.supabase.co",vapid:"BN7EsKJgHKJDOzn0qMBqc85PNyVS2lQbtlL5Wpj5p7Dhvo8UI-9btWp9U0AYRmD1HQsr5yw6gZ-W77ynBDVs6to",key:"sb_publishable_59C145Xdf6sH8TwhAzbAjQ__tP-pIyK"};
